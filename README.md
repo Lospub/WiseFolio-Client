@@ -132,6 +132,7 @@ Target users include individuals who aim to stretch their budgets and maximize v
 
 ## Mockups
 
+![Mobile](https://github.com/Lospub/WiseFolio-Client/blob/main/docs/MockUp-Mobile.png)
 ![Desktop-Tablet](https://github.com/Lospub/WiseFolio-Client/blob/main/docs/MockUp-Desktop-Tablet.png)
 
 ## Data
