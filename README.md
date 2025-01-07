@@ -132,46 +132,7 @@ Target users include individuals who aim to stretch their budgets and maximize v
 
 ## Mockups
 
-1. Home Page
-Purpose: Serve as the app's entry point with an overview and call-to-action buttons.
-Key Elements:
-Brief description of features.
-Buttons for “Sign Up,” “Login,” or “Continue as Guest.”
-2. Login Page
-Purpose: Allow registered users to log in.
-Key Elements:
-Email/username and password fields.
-“Forgot Password” option.
-3. Registration Page
-Purpose: Enable new users to create accounts.
-Key Elements:
-Simple form for user details (name, email, password).
-Option to skip registration and continue as a guest.
-4. Dashboard
-Purpose: Central hub for users to view financial data and access features.
-Key Elements:
-Overview of recent transactions and budget status.
-Links to expense tracking, budgeting, and savings goals.
-5. Expense Tracking Page
-Purpose: Enable users to log and view expenses.
-Key Elements:
-Manual transaction entry form.
-Categorized list of logged expenses.
-6. Budget Management Page
-Purpose: Help users create and monitor budgets.
-Key Elements:
-Simple budget setup for key categories.
-Visual progress tracker for spending against budgets.
-7. Savings Goals Page
-Purpose: Allow users to set basic financial goals.
-Key Elements:
-Goal setup interface (goal name, amount, deadline).
-Progress bar for each goal.
-8. Profile Settings Page
-Purpose: Manage account details and preferences.
-Key Elements:
-Edit account information.
-Switch between guest and registered modes.
+![Desktop-Tablet](https://github.com/Lospub/WiseFolio-Client/blob/main/docs/MockUp-Desktop-Tablet.png)
 
 ## Data
 
@@ -373,7 +334,7 @@ Switch between guest and registered modes.
 | **Should Have** | US.1.0.4, US.2.0.2, US.3.0.2, US.4.0.1, US.5.0.2                                                   |
 | **Could Have**  | US.3.0.3, US.4.0.2                                                                                 |
 | **Would Have**  | US.6.0.1, US.6.0.2                                                                                 |
-|
+
 
 ## Future Implementations
 1. View local stores or deals on a map to make informed purchasing decisions. 
