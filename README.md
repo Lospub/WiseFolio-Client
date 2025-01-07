@@ -253,7 +253,7 @@ Target users include individuals who aim to stretch their budgets and maximize v
 #### US.3.0.3 (Could Have)
 **As a user, I want to receive alerts when I am nearing my budget limit so that I can avoid overspending.**
 - **Risk Level:** High
-- **Story Points:** 8
+- **Story Points:** 5
 - **Acceptance Criteria:**
   1. Alerts are triggered when 80% of a budget is used.
   2. Notifications are displayed in the app.
