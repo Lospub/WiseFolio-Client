@@ -1,0 +1,57 @@
+@use 'variables' as *;
+
+@mixin tablet {
+    @media screen and (min-width: $tablet-breakpoint) {
+        @content;
+    }
+}
+
+@mixin desktop {
+    @media screen and (min-width: $desktop-breakpoint) {
+        @content;
+    }
+}
+
+@mixin media($keys...) {
+    @each $key in $keys {
+        @if ($key == tablet) {
+            @include tablet {
+            @content;
+            }
+        } @else if ($key == desktop) {
+            @include desktop {
+            @content;
+            }
+        }
+    }
+}
+
+@mixin background-style($image, $color, $position, $size) {
+    background-image: $image;
+    background-color: $color;
+    background-position: $position;
+    background-size: $size;
+}
+
+@mixin flex-style($align, $justify, $text, $wrap, $direction) {
+    display: flex;
+    align-items: $align;
+    justify-content: $justify;
+    text-align: $text;
+    flex-wrap: $wrap;
+    flex-direction: $direction;
+}
+
+@mixin border-style($radius, $bg-color, $border-color, $bd: 1px) {
+    background-color: $bg-color;
+    border: $bd solid $border-color;
+    border-radius: $radius;
+}
+
+@mixin font-style($size, $height, $weight, $color, $style: normal) {
+    font-size: $size;
+    line-height: $height;
+    font-weight: $weight;
+    color: $color;
+    font-style: $style;
+}
