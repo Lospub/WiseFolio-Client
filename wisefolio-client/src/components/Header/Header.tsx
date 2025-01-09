@@ -16,25 +16,35 @@ const Header = () => {
 
     return (
         <header className="header">
+
+            {/* Display Logo */}
             <div className="header__logo">
                 <Link to="/">
                     <WiseFolioLogo className="header__logo-icon" />
                 </Link>
             </div>
+
+            {/* Display Navigation */}
             <nav className="header__nav">
+                
                 {isHomePage && (
+                    // Link to the dashboard when on the home page
                     <Link to="/dashboard" className="header__link">
                         <span className="header__text">Dashboard</span>
-                        <DashboardIcon className="header__icon" />
+                        <DashboardIcon className="header__icon header__icon--mobile" />
                     </Link>
                 )}
+
                 {isAuthPage && (
+                    // Link to the home page when on an auth page
                     <Link to="/" className="header__link">
                         <span className="header__text">Home</span>
-                        <HomeIcon className="header__icon" />
+                        <HomeIcon className="header__icon header__icon--mobile" />
                     </Link>
                 )}
+
                 {isOtherPage && (
+                    // Display user icons when on other pages
                     <div className="header__icons">
                         <BellIcon className="header__icon header__icon--bell" />
                         <UserAvatar className="header__icon header__icon--avatar" />
