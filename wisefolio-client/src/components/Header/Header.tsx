@@ -76,11 +76,7 @@ const Header = () => {
                     <ProfileIcon className="header__dropdown-icon" />
                     Profile Settings
                   </Link>
-                  <Link
-                    to="/"
-                    className="header__dropdown-item header__dropdown-item--logout"
-                    onClick={handleLogout}
-                  >
+                  <Link to="/" className="header__dropdown-item header__dropdown-item--logout" onClick={handleLogout}>
                     <LogoutIcon className="header__dropdown-icon" />
                     Logout
                   </Link>
