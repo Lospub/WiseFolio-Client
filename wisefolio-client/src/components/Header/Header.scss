@@ -9,6 +9,47 @@
     @include tablet {
         align-items: center;
         padding: 1.5rem 2rem;
+
+        &__avatar-wrapper {
+            position: relative;
+        }
+    
+        &__dropdown {
+            position: absolute;
+            top: 45px;
+            right: 0;
+            background: $primary-color;
+            box-shadow: 0 4px 8px $primary-shadow;
+            border-radius: 8px;
+            width: 175px;
+            z-index: 10;
+        }
+    
+        &__dropdown-item {
+            @include flex-style(center, flex-start, none, nowrap, row);
+            padding: 0.625rem 1rem;
+            @include font-style(0.875rem, 1.5, 500, $tertiary-text);
+            text-decoration: none;
+            cursor: pointer;
+    
+            &:hover {
+                background-color: $primary-background;
+            }
+    
+            &--logout {
+                color: $primary-highlight;
+    
+                &:hover {
+                    background-color: $primary-hover;
+                }
+            }
+        }
+
+        &__dropdown-icon {
+            margin-right: 0.625rem;
+            width: 1.25rem;
+            height: 1.25rem;
+        }
     }
 
     @include desktop {

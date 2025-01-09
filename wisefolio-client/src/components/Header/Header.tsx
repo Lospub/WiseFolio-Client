@@ -31,7 +31,6 @@ const Header = () => {
   // handle the logout
   const handleLogout = () => {
     console.log('User logged out');
-    navigate('/');
   };
 
   return (
@@ -78,7 +77,7 @@ const Header = () => {
                     Profile Settings
                   </Link>
                   <Link
-                    to="/login"
+                    to="/"
                     className="header__dropdown-item header__dropdown-item--logout"
                     onClick={handleLogout}
                   >
