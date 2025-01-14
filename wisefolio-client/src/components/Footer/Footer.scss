@@ -2,7 +2,7 @@
 @use "../../styles/partials/mixins" as *;
 
 .footer {
-    background-color: $primary-background;
+    background-color: $primary-text;
     padding: 1rem;
     border-top: 1px solid $primary-boarder;
 
@@ -34,12 +34,12 @@
     }
 
     &__section-title {
-        @include font-style(1rem, 1.25rem, bold, $primary-text);
+        @include font-style(1rem, 1.25rem, bold, $footer-text);
         margin-bottom: 0.5rem;
     }
 
     &__contact {
-        @include font-style(0.9rem, 1.2rem, normal, $secondary-text);
+        @include font-style(0.9rem, 1.2rem, normal, $footer-text);
         display: flex;
         align-items: center;
         margin: 0.25rem 0;
@@ -50,7 +50,6 @@
         width: 1.25rem;
         height: 1.25rem;
         margin-right: 0.5rem;
-        fill: $secondary-text;
         transition: fill 0.3s;
     }
 
@@ -66,7 +65,7 @@
         padding-top: 0.625rem;
 
         p {
-            @include font-style(0.9rem, 1.2rem, normal, $tertiary-text);
+            @include font-style(0.9rem, 1.2rem, normal, $footer-text);
         }
     }
 }
