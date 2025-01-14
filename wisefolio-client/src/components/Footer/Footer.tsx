@@ -10,14 +10,14 @@ const Footer = () => {
     return (
         <footer className="footer">
             <div className="footer__container">
+                
                 {/* Logo Section */}
-                <div className="footer__section footer__section--brand">
+                <article className="footer__section">
                     <WiseFolioLogo className="footer__logo" />
-                    <span className="footer__brand-name">WiseFolio</span>
-                </div>
+                </article>
 
                 {/* Contact Section */}
-                <div className="footer__section footer__section--contact">
+                <article className="footer__section">
                     <h4 className="footer__section-title">Contact</h4>
                     <p className="footer__contact-item">
                         <EmailIcon className="footer__icon" />
@@ -27,10 +27,10 @@ const Footer = () => {
                         <PhoneIcon className="footer__icon" />
                         +1 (555) 123-4567
                     </p>
-                </div>
+                </article>
 
                 {/* Social Media Section */}
-                <div className="footer__section footer__section--social">
+                <article className="footer__section">
                     <h4 className="footer__section-title">Social</h4>
                     <div className="footer__social-icons">
                         <a href="https://twitter.com" target="_blank" rel="noopener noreferrer">
@@ -43,7 +43,7 @@ const Footer = () => {
                             <LinkedInIcon className="footer__icon" />
                         </a>
                     </div>
-                </div>
+                </article>
             </div>
             <div className="footer__bottom">
                 <p>&copy; 2025 WiseFolio. All rights reserved.</p>
