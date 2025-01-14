@@ -38,11 +38,12 @@
         margin-bottom: 0.5rem;
     }
 
-    &__contact-item {
+    &__contact {
         @include font-style(0.9rem, 1.2rem, normal, $secondary-text);
         display: flex;
         align-items: center;
         margin: 0.25rem 0;
+        text-decoration: none;
     }
 
     &__icon {
@@ -58,7 +59,7 @@
         gap: 0.625rem;
     }
 
-    &__bottom {
+    &__copyright {
         text-align: center;
         margin-top: 1.25rem;
         border-top: 1px solid $primary-boarder;

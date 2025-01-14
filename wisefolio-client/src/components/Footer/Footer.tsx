@@ -10,7 +10,7 @@ const Footer = () => {
     return (
         <footer className="footer">
             <div className="footer__container">
-                
+
                 {/* Logo Section */}
                 <article className="footer__section">
                     <WiseFolioLogo className="footer__logo" />
@@ -19,15 +19,16 @@ const Footer = () => {
                 {/* Contact Section */}
                 <article className="footer__section">
                     <h4 className="footer__section-title">Contact</h4>
-                    <p className="footer__contact-item">
+                    <a href="mailto:support@wisefolio.com" className="footer__contact" aria-label="Email">
                         <EmailIcon className="footer__icon" />
                         support@wisefolio.com
-                    </p>
-                    <p className="footer__contact-item">
+                    </a>
+                    <a href="tel:+11231234567" className="footer__contact" aria-label="Call support">
                         <PhoneIcon className="footer__icon" />
-                        +1 (555) 123-4567
-                    </p>
+                        +1 (123) 123-4567
+                    </a>
                 </article>
+
 
                 {/* Social Media Section */}
                 <article className="footer__section">
@@ -45,7 +46,7 @@ const Footer = () => {
                     </div>
                 </article>
             </div>
-            <div className="footer__bottom">
+            <div className="footer__copyright">
                 <p>&copy; 2025 WiseFolio. All rights reserved.</p>
             </div>
         </footer>
