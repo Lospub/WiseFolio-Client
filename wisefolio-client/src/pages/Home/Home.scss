@@ -1,0 +1,36 @@
+@use "../../styles/partials/variables" as *;
+@use "../../styles/partials/mixins" as *;
+
+.home {
+    background-color: $primary-background;
+    padding: 1rem;
+    min-height: 78vh;
+
+    &__hero {
+        text-align: center;
+        padding: 2rem 1rem;
+    }
+
+    &__hero-title {
+        @include font-style(2rem, 1.5, 700, $primary-text);
+    }
+
+    &__hero-subtitle {
+        @include font-style(1rem, 1.5, 400, $secondary-text);
+        margin-top: 0.5rem;
+    }
+
+    &__features {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+        margin-top: 2rem;
+    }
+    
+    &__feature {
+        @include border-style(0.5rem, $primary-color, $primary-boarder);
+        @include font-style(1rem, 1.5, 600, $tertiary-text);
+        padding: 0.75rem;
+        text-align: center;
+    }
+}
