@@ -1,0 +1,121 @@
+@use "../../styles/partials/variables" as *;
+@use "../../styles/partials/mixins" as *;
+
+.home {
+    background-color: $primary-background;
+    padding: 1rem;
+    min-height: 78vh;
+
+    @include tablet {
+        padding: 1.5rem 2rem;
+    }
+
+    @include desktop {
+        padding: 1.5rem 4rem;
+    }
+
+    &__hero {
+        text-align: center;
+        padding: 2rem 1rem;
+    }
+
+    &__hero-title {
+        @include font-style(2rem, 1.5, 700, $primary-text);
+
+        @include desktop {
+            @include font-style(2.5rem, 1.5, 700, $primary-text);
+        }
+    }
+
+    &__hero-subtitle {
+        @include font-style(1rem, 1.5, 400, $secondary-text);
+        margin-top: 0.5rem;
+    }
+
+    &__features {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+        margin-top: 2rem;
+
+        @include tablet {
+            grid-template-columns: repeat(4, 1fr);
+        }
+
+        @include desktop {
+            gap: 2rem;
+        }
+    }
+
+    &__feature {
+        @include border-style(0.5rem, $primary-color, $primary-boarder);
+        @include font-style(1rem, 1.5, 600, $tertiary-text);
+        padding: 0.75rem;
+        text-align: center;
+    }
+
+    &__buttons {
+        margin-top: 2rem;
+    }
+
+    &__signup-btn {
+        @include font-style(1rem, 1.5, 600, $primary-color);
+        @include button-style($primary-select, 0.75rem 1.5rem, none, 0.5rem, 0 1rem 0 0);
+    }
+
+    &__login-btn {
+        @include font-style(1rem, 1.5, 600, $primary-select);
+        @include button-style($primary-color, 0.75rem 1.5rem, 1px solid $primary-select);
+    }
+
+    &__guest-link {
+        @include font-style(0.875rem, 1.5, 400, $secondary-text);
+        display: block;
+        margin-top: 1rem;
+        text-decoration: none;
+        cursor: pointer;
+        
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+
+    &__choose {
+        margin: 2rem 0;
+        text-align: center;
+    }
+
+    &__choose-title {
+        @include font-style(1.5rem, 1.5, 700, $primary-text);
+    }
+
+    &__benefits {
+        margin-top: 2rem;
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 2rem;
+
+        @include tablet {
+            grid-template-columns: repeat(3, 1fr);
+        }
+
+        @include desktop {
+            gap: 3rem;
+        }
+    }
+
+    &__benefit {
+        @include border-style(0.5rem, $primary-color, $primary-boarder);
+        padding: 1rem;
+    }
+
+
+    &__benefit-title {
+        @include font-style(1.125rem, 1.5, 600, $primary-text);
+    }
+
+    &__benefit-content {
+        @include font-style(0.875rem, 1.5, 400, $secondary-text);
+        margin-top: 0.5rem;
+    }
+}

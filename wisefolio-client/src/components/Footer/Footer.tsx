@@ -5,6 +5,7 @@ import LinkedInIcon from '@/assets/icons/linkedin.svg?react';
 import EmailIcon from '@/assets/icons/email.svg?react';
 import PhoneIcon from '@/assets/icons/phone.svg?react';
 import './Footer.scss';
+import { Link } from 'react-router-dom';
 
 const Footer = () => {
   return (
@@ -12,9 +13,9 @@ const Footer = () => {
       <div className="footer__container">
 
         {/* Logo Section */}
-        <article className="footer__section">
+        <Link to="/" className="footer__section">
           <WiseFolioLogo className="footer__logo" />
-        </article>
+        </Link>
 
         {/* Contact Section */}
         <article className="footer__section">

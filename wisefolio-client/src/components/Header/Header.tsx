@@ -16,7 +16,7 @@ const Header = () => {
 
   // Determine the header type
   const isHomePage = location.pathname === '/';
-  const isAuthPage = location.pathname === '/login' || location.pathname === '/signup';
+  const isAuthPage = location.pathname === '/login' || location.pathname === '/register';
   const isOtherPage = !isHomePage && !isAuthPage;
 
   // Navigate to profile page on mobile, or toggle dropdown for tablet and desktop
