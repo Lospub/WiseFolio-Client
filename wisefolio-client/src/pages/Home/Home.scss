@@ -72,8 +72,12 @@
         @include font-style(0.875rem, 1.5, 400, $secondary-text);
         display: block;
         margin-top: 1rem;
-        text-decoration: underline;
+        text-decoration: none;
         cursor: pointer;
+        
+        &:hover {
+            text-decoration: underline;
+        }
     }
 
     &__choose {
