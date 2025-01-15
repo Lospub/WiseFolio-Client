@@ -6,6 +6,14 @@
     padding: 1rem;
     min-height: 78vh;
 
+    @include tablet {
+        padding: 1.5rem 2rem;
+    }
+
+    @include desktop {
+        padding: 1.5rem 4rem;
+    }
+
     &__hero {
         text-align: center;
         padding: 2rem 1rem;
@@ -13,6 +21,10 @@
 
     &__hero-title {
         @include font-style(2rem, 1.5, 700, $primary-text);
+
+        @include desktop {
+            @include font-style(2.5rem, 1.5, 700, $primary-text);
+        }
     }
 
     &__hero-subtitle {
@@ -25,6 +37,14 @@
         grid-template-columns: repeat(2, 1fr);
         gap: 1rem;
         margin-top: 2rem;
+
+        @include tablet {
+            grid-template-columns: repeat(4, 1fr);
+        }
+
+        @include desktop {
+            gap: 2rem;
+        }
     }
 
     &__feature {
@@ -70,6 +90,14 @@
         display: grid;
         grid-template-columns: 1fr;
         gap: 2rem;
+
+        @include tablet {
+            grid-template-columns: repeat(3, 1fr);
+        }
+
+        @include desktop {
+            gap: 3rem;
+        }
     }
 
     &__benefit {
