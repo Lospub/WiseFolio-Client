@@ -55,4 +55,35 @@
         text-decoration: underline;
         cursor: pointer;
     }
+
+    &__choose {
+        margin: 2rem 0;
+        text-align: center;
+    }
+
+    &__choose-title {
+        @include font-style(1.5rem, 1.5, 700, $primary-text);
+    }
+
+    &__benefits {
+        margin-top: 2rem;
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+
+    &__benefit {
+        @include border-style(0.5rem, $primary-color, $primary-boarder);
+        padding: 1rem;
+    }
+
+
+    &__benefit-title {
+        @include font-style(1.125rem, 1.5, 600, $primary-text);
+    }
+
+    &__benefit-content {
+        @include font-style(0.875rem, 1.5, 400, $secondary-text);
+        margin-top: 0.5rem;
+    }
 }
