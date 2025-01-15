@@ -32,9 +32,9 @@ const Home = () => {
                             <p>AI Insights</p>
                         </div>
                     </article>
-                    <div className="home__actions">
-                        <button className="home__primary-btn">Sign Up</button>
-                        <button className="home__secondary-btn">Login</button>
+                    <div className="home__buttons">
+                        <button className="home__signup-btn">Sign Up</button>
+                        <button className="home__login-btn">Login</button>
                         <a href="#" className="home__guest-link">Continue as Guest</a>
                     </div>
                 </header>

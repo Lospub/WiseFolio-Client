@@ -26,11 +26,33 @@
         gap: 1rem;
         margin-top: 2rem;
     }
-    
+
     &__feature {
         @include border-style(0.5rem, $primary-color, $primary-boarder);
         @include font-style(1rem, 1.5, 600, $tertiary-text);
         padding: 0.75rem;
         text-align: center;
+    }
+
+    &__buttons {
+        margin-top: 2rem;
+    }
+
+    &__signup-btn {
+        @include font-style(1rem, 1.5, 600, $primary-color);
+        @include button-style($primary-select, 0.75rem 1.5rem, none, 0.5rem, 0 1rem 0 0);
+    }
+
+    &__login-btn {
+        @include font-style(1rem, 1.5, 600, $primary-select);
+        @include button-style($primary-color, 0.75rem 1.5rem, 1px solid $primary-select);
+    }
+
+    &__guest-link {
+        @include font-style(0.875rem, 1.5, 400, $secondary-text);
+        display: block;
+        margin-top: 1rem;
+        text-decoration: underline;
+        cursor: pointer;
     }
 }
