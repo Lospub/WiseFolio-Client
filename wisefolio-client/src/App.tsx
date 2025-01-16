@@ -1,7 +1,7 @@
 import './App.scss'
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Home from './pages/Home/Home';
-import Registration from './pages/Registration';
+import Registration from './pages/Registration/Registration';
 import Login from './pages/Login/Login';
 import Dashboard from './pages/Dashboard';
 import ExpenseTracking from './pages/ExpenseTracking';
