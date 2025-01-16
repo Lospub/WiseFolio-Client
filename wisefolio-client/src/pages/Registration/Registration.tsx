@@ -89,7 +89,6 @@ const Registration = () => {
                   type="button"
                   className="registration__icon"
                   onClick={() => setPasswordVisible(!passwordVisible)}
-                  aria-label="Toggle password visibility"
                 >
                   {passwordVisible ? <HideIcon /> : <ShowIcon />}
                 </button>
@@ -116,7 +115,6 @@ const Registration = () => {
                   type="button"
                   className="registration__icon"
                   onClick={() => setConfirmPasswordVisible(!confirmPasswordVisible)}
-                  aria-label="Toggle confirm password visibility"
                 >
                   {confirmPasswordVisible ? <HideIcon /> : <ShowIcon />}
                 </button>
