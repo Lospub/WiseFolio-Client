@@ -11,11 +11,17 @@ const Login: React.FC = () => {
 
   return (
     <>
-      <div className="login">
+      <section className="login">
+
+        {/* Login Card */}
         <div className="login__card">
           <h1 className="login__title">Welcome Back</h1>
           <p className="login__subtitle">Sign in to continue to WiseFolio</p>
+
+          {/* Login Form */}
           <form onSubmit={handleSignIn} className="login__form">
+
+            {/* Email */}
             <div className="login__container">
               <label className="login__label" htmlFor="email">
                 Email
@@ -28,6 +34,8 @@ const Login: React.FC = () => {
                 required
               />
             </div>
+
+            {/* Password */}
             <div className="login__container">
               <label className="login__label" htmlFor="password">
                 Password
@@ -41,7 +49,7 @@ const Login: React.FC = () => {
               />
             </div>
 
-            <Link to="#" className="login__links__link">
+            <Link to="#" className="login__link">
               Forgot Password?
             </Link>
             <button type="submit" className="login__button">
@@ -49,18 +57,18 @@ const Login: React.FC = () => {
             </button>
           </form>
           <div className="login__links">
-            <p className="login__links__text">
+            <p className="login__text">
               Don't have an account?{" "}
-              <Link to="/signup" className="login__links__link">
+              <Link to="/signup" className="login__link">
                 Create one
               </Link>
             </p>
-            <Link to="/dashboard" className="login__links__guest">
+            <Link to="/dashboard" className="login__guest">
               Continue as Guest
             </Link>
           </div>
         </div>
-      </div>
+      </section>
       <Footer />
     </>
 

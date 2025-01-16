@@ -1,0 +1,96 @@
+@use "../../styles/partials/variables" as *;
+@use "../../styles/partials/mixins" as *;
+
+.login {
+    @include flex-style(center, center, center, nowrap, column);
+    background-color: $primary-background;
+    min-height: 78vh;
+    padding: 1rem;
+
+    &__card {
+        background: $primary-color;
+        padding: 2rem;
+        @include border-style(8px, $primary-color, $primary-boarder, 0);
+        box-shadow: 0 2px 10px $primary-shadow;
+        width: 100%;
+        max-width: 600px;
+        text-align: center;
+    }
+
+    &__title {
+        @include font-style(1.5rem, 1.75rem, 700, $primary-text);
+        margin-bottom: 0.5rem;
+    }
+
+    &__subtitle {
+        @include font-style(0.9rem, 1.5rem, 400, $secondary-text);
+        margin-bottom: 1.5rem;
+    }
+
+    &__form {
+        display: flex;
+        flex-direction: column;
+        gap: 1.25rem;
+        width: 100%;
+    }
+
+    &__container {
+        @include flex-style(flex-start, center, left, nowrap, column);
+    }
+
+    &__label {
+        @include font-style(0.875rem, 1.25rem, 500, $tertiary-text);
+        margin-bottom: 0.25rem;
+    }
+
+    &__input {
+        padding: 0.8rem 1rem;
+        @include border-style(6px, $primary-color, $primary-boarder);
+        font-size: 1rem;
+        width: 100%;
+        color: $tertiary-text;
+
+        &::placeholder {
+            color: $footer-text;
+        }
+    }
+
+    &__button {
+        @include button-style($primary-select, 0.85rem 1rem, none, 6px);
+        color: $primary-color;
+        font-size: 1rem;
+        font-weight: 600;
+        width: 100%;
+        margin-top: 1rem;
+        transition: background-color 0.3s;
+    }
+
+    &__links {
+        margin-top: 1rem;
+    }
+    
+    &__link {
+        @include font-style(0.9rem, 1.25rem, 400, $primary-process);
+        text-decoration: none;
+
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+
+    &__text {
+        @include font-style(0.9rem, 1.25rem, 400, $secondary-text);
+        margin: 0.75rem 0;
+    }
+
+    &__guest {
+        @include font-style(0.9rem, 1.25rem, 400, $primary-process);
+        margin-top: 1rem;
+        text-decoration: none;
+        cursor: pointer;
+
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+}
