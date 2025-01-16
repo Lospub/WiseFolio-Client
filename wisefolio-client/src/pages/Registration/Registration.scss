@@ -74,7 +74,43 @@
 
     &__hint {
         @include font-style(0.8rem, 1.2rem, 400, $secondary-text);
+        margin-top: 0.25rem;
     }
 
+    &__error {
+        @include font-style(0.8rem, 1.2rem, 400, $primary-highlight);
+        margin-top: 0.25rem;
+    }
+
+    &__agreement {
+        @include flex-style(center, center, left, nowrap, row);
+        gap: 0.5rem;
+    }
+
+    &__link {
+        color: $primary-process;
+        text-decoration: none;
+        padding: 0 0.5rem;
+
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+
+    &__button {
+        @include button-style($primary-select, 0.85rem 1rem, none, 6px);
+        @include font-style(1rem, normal, 600, $primary-color);
+        width: 100%;
+        margin: 1rem 0;
+    }
+
+    &__guest {
+        @include font-style(1rem, normal, 400, $secondary-text);
+        text-decoration: none; 
+
+        &:hover {
+            text-decoration: underline; 
+        }
+    }
 
 }
