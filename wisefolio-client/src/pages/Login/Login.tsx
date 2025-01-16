@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import './Login.scss';
 import Footer from '../../components/Footer/Footer';
 
-const Login: React.FC = () => {
+const Login = () => {
   const handleSignIn = (e: React.FormEvent) => {
     e.preventDefault();
     console.log("Sign-In Submitted");
