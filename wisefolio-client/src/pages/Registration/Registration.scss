@@ -1,0 +1,25 @@
+@use "../../styles/partials/variables" as *;
+@use "../../styles/partials/mixins" as *;
+
+.registration {
+    @include flex-style(center, center, center, nowrap, column);
+    background-color: $primary-background;
+    min-height: 78vh;
+    padding: 1rem;
+
+    &__card {
+        background: $primary-color;
+        padding: 2rem;
+        @include border-style(8px, $primary-color, $primary-boarder, 0);
+        box-shadow: 0 2px 10px $primary-shadow;
+        width: 100%;
+        max-width: 600px;
+        text-align: center;
+    }
+
+    &__title {
+        @include font-style(1.5rem, 1.75rem, 700, $primary-text);
+        margin-bottom: 1.5rem;
+    }
+
+}
