@@ -4,6 +4,7 @@ import ExpenseIcon from "../../assets/icons/expense.svg?react";
 import BudgetIcon from "../../assets/icons/budget.svg?react";
 import SavingsIcon from "../../assets/icons/saving.svg?react";
 import AIIcon from "../../assets/icons/AI.svg?react";
+import RobotIcon from "../../assets/icons/robot.svg?react";
 import SecurityIcon from "../../assets/icons/locker.svg?react";
 import RealTimeIcon from "../../assets/icons/time.svg?react";
 import { Link, useNavigate } from 'react-router-dom';
@@ -59,7 +60,7 @@ const Home = () => {
                     <h2 className="home__choose-title">Why Choose WiseFolio?</h2>
                     <div className="home__benefits">
                         <div className="home__benefit">
-                            <AIIcon />
+                            <RobotIcon />
                             <h3 className="home__benefit-title">AI-Powered Analysis</h3>
                             <p className="home__benefit-content">Get personalized insights and recommendations based on your spending patterns.</p>
                         </div>

@@ -59,7 +59,7 @@ const Login = () => {
           <div className="login__links">
             <p className="login__text">
               Don't have an account?{" "}
-              <Link to="/signup" className="login__link">
+              <Link to="/register" className="login__link">
                 Create one
               </Link>
             </p>
