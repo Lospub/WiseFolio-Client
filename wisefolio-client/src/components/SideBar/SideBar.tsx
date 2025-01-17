@@ -4,28 +4,32 @@ import BudgetIcon from "../../assets/icons/budget-side.svg?react";
 import SavingIcon from "../../assets/icons/saving-side.svg?react";
 import './Sidebar.scss';
 
-const Sidebar = () => {
+interface MenuItem {
+  icon: React.ReactElement;
+  label: string;
+  active?: boolean;
+}
 
+const Sidebar = () => {
+  const menuItems: MenuItem[] = [
+    { icon: <DashboardIcon />, label: 'Dashboard', active: true },
+    { icon: <ExpenseIcon />, label: 'Expense Tracking' },
+    { icon: <BudgetIcon />, label: 'Budget Management' },
+    { icon: <SavingIcon />, label: 'Savings Goals' },
+  ];
 
   return (
     <div className="sidebar">
       <ul className="sidebar__menu">
-      <li className="sidebar__item sidebar__item--active">
-          <DashboardIcon />
-          Dashboard
-        </li>
-        <li className="sidebar__item">
-          <ExpenseIcon />
-          Expense Tracking
-        </li>
-        <li className="sidebar__item">
-          <BudgetIcon />
-          Budget Management
-        </li>
-        <li className="sidebar__item">
-          <SavingIcon />
-          Savings Goals
-        </li>
+        {menuItems.map((item, index) => (
+          <li
+            key={index}
+            className={`sidebar__item ${item.active ? 'sidebar__item--active' : ''}`}
+          >
+            <span className="sidebar__icon">{item.icon}</span>
+            <span className="sidebar__label">{item.label}</span>
+          </li>
+        ))}
       </ul>
     </div>
   );
