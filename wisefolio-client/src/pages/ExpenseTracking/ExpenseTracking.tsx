@@ -5,10 +5,26 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import CalenderIcon from "../../assets/icons/calendar.svg?react"
 import DropDownIcon from "../../assets/icons/dropdown.svg?react"
+import EditIcon from "../../assets/icons/edit.svg?react";
+import DeleteIcon from "../../assets/icons/delete.svg?react";
 
 const ExpenseTracking = () => {
   const [selectedDate, setSelectedDate] = useState<Date>(new Date());
   const [category, setCategory] = useState<string>("");
+  // sample data
+  const [expenses, setExpenses] = useState([
+    { id: 1, description: "Grocery Shopping", category: "Food", date: "March 15, 2025", amount: 45.99 },
+    { id: 2, description: "Bus Ticket", category: "Transport", date: "March 14, 2025", amount: 2.50 },
+  ]);
+
+  const handleEdit = (id: number) => {
+    console.log("Edit clicked for ID:", id);
+  };
+
+  const handleDelete = (id: number) => {
+    console.log("Delete clicked for ID:", id);
+  };
+
 
   return (
     <div className="expense">
@@ -63,6 +79,32 @@ const ExpenseTracking = () => {
               Add Expense
             </button>
           </form>
+        </div>
+        <div className="expense__recent">
+          <h2 className="expense__recent-title">Recent Expenses</h2>
+          <ul className="expense__recent-list">
+            {expenses.map((expense) => (
+              <li key={expense.id} className="expense__recent-item">
+                <div>
+                  <p className="expense__recent-description">{expense.description}</p>
+                  <p className="expense__recent-details">
+                    {expense.category} • {expense.date}
+                  </p>
+                </div>
+                <div className="expense__recent-actions">
+                  <span className="expense__recent-amount">${expense.amount.toFixed(2)}</span>
+                  <EditIcon
+                    className="expense__recent-icon expense__recent-edit"
+                    onClick={() => handleEdit(expense.id)}
+                  />
+                  <DeleteIcon
+                    className="expense__recent-icon expense__recent-delete"
+                    onClick={() => handleDelete(expense.id)}
+                  />
+                </div>
+              </li>
+            ))}
+          </ul>
         </div>
       </section>
     </div>
