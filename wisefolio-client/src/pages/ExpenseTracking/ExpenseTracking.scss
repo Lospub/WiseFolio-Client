@@ -13,6 +13,10 @@
     &__section {
         width: 100%;
         padding: 1rem;
+
+        @include desktop {
+            padding: 2rem 12rem;
+        }
     }
 
     &__form {
@@ -26,15 +30,35 @@
         margin-bottom: 1rem;
     }
 
+    &__form-details {
+        @include tablet {
+            @include flex-style(flex-start, space-between, left, wrap, row);
+            width: 100%
+        }
+    }
+
     &__input {
         width: 100%;
         padding: 10px 14px;
         margin-bottom: 10px;
         @include border-style(4px, $primary-color, $primary-boarder, 2px);
+
+        @include tablet {
+            width: 49%;
+        }
+    }
+
+    &__dropdown-container {
+        position: relative;
+        @include flex-style(center, center, unset, nowrap, row);
+        width: 100%;
+        
+        @include tablet {
+            width: 49%;
+        }
     }
 
     &__dropdown {
-        position: relative;
         width: 100%;
         padding: 10px 14px;
         @include border-style(4px, $primary-color, $primary-boarder, 2px);
@@ -53,18 +77,20 @@
 
     &__dropdown-icon {
         position: absolute;
-        right: 45px;
-        top: 38.75%;
+        right: 15px;
         transform: translateY(-50%);
     }
 
     &__date {
         position: relative;
+
+        @include tablet {
+            width: 49%;
+        }
     }
 
     &__custom {
-        display: flex;
-        align-items: center;
+        @include flex-style(center, center, unset, nowrap, row);
         position: relative;
     }
 
@@ -85,6 +111,10 @@
         @include font-style(1rem, auto, 600, $primary-color);
         width: 100%;
         margin-top: 1rem;
+
+        @include tablet {
+            width: 150px;
+        }
 
         &:hover {
             background-color: $primary-text;

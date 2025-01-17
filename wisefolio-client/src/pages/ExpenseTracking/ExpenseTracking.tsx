@@ -5,8 +5,6 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import CalenderIcon from "../../assets/icons/calendar.svg?react"
 import DropDownIcon from "../../assets/icons/dropdown.svg?react"
-import EditIcon from "../../assets/icons/edit.svg?react";
-import DeleteIcon from "../../assets/icons/delete.svg?react";
 import ListView from "../../components/Listview/Listview";
 
 const ExpenseTracking = () => {
@@ -33,22 +31,24 @@ const ExpenseTracking = () => {
       <section className="expense__section">
         <div className="expense__form">
           <h2 className="expense__form-title">Add New Expense</h2>
-          <form>
+          <form className="expense__form-details">
             <input type="text" placeholder="Description" className="expense__input" />
             <input type="number" placeholder="Amount" className="expense__input" />
-
-            <select
-              className="expense__dropdown"
-              value={category}
-              onChange={(e) => setCategory(e.target.value)}
-            >
-              <option value="" disabled hidden>Please select category</option>
-              <option value="food">Food</option>
-              <option value="transport">Transport</option>
-              <option value="entertainment">Entertainment</option>
-              <option value="others">Others</option>
-            </select>
-            <DropDownIcon className="expense__dropdown-icon"/>
+            
+            <div className="expense__dropdown-container">
+              <select
+                className="expense__dropdown"
+                value={category}
+                onChange={(e) => setCategory(e.target.value)}
+              >
+                <option value="" disabled hidden>Please select category</option>
+                <option value="food">Food</option>
+                <option value="transport">Transport</option>
+                <option value="entertainment">Entertainment</option>
+                <option value="others">Others</option>
+              </select>
+              <DropDownIcon className="expense__dropdown-icon" />
+            </div>
 
             <div className="expense__date">
               <DatePicker
@@ -71,7 +71,7 @@ const ExpenseTracking = () => {
                       }
                       readOnly
                     />
-                    <CalenderIcon className="expense__date-icon"/>
+                    <CalenderIcon className="expense__date-icon" />
                   </div>
                 }
               />
