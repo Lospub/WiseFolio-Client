@@ -2,15 +2,19 @@ import Footer from "../../components/Footer/Footer";
 import ShowIcon from "../../assets/icons/show.svg?react";
 import HideIcon from "../../assets/icons/hide.svg?react";
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./Registration.scss";
+import { registerUser } from "../../api/userServer";
 
 const Registration = () => {
+  const [email, setEmail] = useState("");
+  const [name, setName] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [confirmPasswordVisible, setConfirmPasswordVisible] = useState(false);
   const [passwordsMatch, setPasswordsMatch] = useState(true);
+  const navigate = useNavigate();
 
   const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setPassword(e.target.value);
@@ -22,13 +26,18 @@ const Registration = () => {
     setPasswordsMatch(password === e.target.value);
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!passwordsMatch) {
       alert("Passwords do not match!");
       return;
     }
-    console.log("Registration Submitted");
+    try {
+      await registerUser(email, name, password);
+      navigate("/login");
+    } catch (error:any) {
+      console.error("An Error Occurred: ", error.message)
+    }
   };
 
   return (
@@ -51,6 +60,8 @@ const Registration = () => {
                 type="text"
                 id="fullname"
                 placeholder="John Doe"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
                 required
               />
             </div>
@@ -65,6 +76,8 @@ const Registration = () => {
                 type="email"
                 id="email"
                 placeholder="john@example.com"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
                 required
               />
             </div>
@@ -123,16 +136,16 @@ const Registration = () => {
                 <p className="registration__error">Passwords do not match</p>
               )}
             </div>
-            
+
             {/* Agreement checkbox */}
             <div className="registration__agreement">
               <input type="checkbox" id="terms" required />
               <label htmlFor="terms" className="registration__links">
-                I agree to the 
+                I agree to the
                 <Link to="#" className="registration__link">
                   Terms of Service
                 </Link>
-                and 
+                and
                 <Link to="#" className="registration__link">
                   Privacy Policy
                 </Link>.

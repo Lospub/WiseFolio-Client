@@ -10,7 +10,21 @@ interface LoginResponse {
     idToken: string;
 }
 
-// Log in a user
+// Sign up
+export const registerUser = async (
+    email: string,
+    name: string,
+    password: string
+): Promise<User> => {
+    try {
+        const response = await apiClient.post<User>('/signup', { email, name, password });
+        return response.data;
+    } catch (error: any) {
+        throw error.response?.data?.message || error.message;
+    }
+};
+
+// Log in
 export const loginUser = async (
     email: string,
     password: string
