@@ -30,26 +30,29 @@ const ExpenseTracking = () => {
                 selected={selectedDate}
                 onChange={(date: Date | null) => {
                   if (date) {
-                      setSelectedDate(date);
-                  }}}
+                    setSelectedDate(date);
+                  }
+                }}
                 dateFormat="MM/dd/yyyy"
                 customInput={
                   <div className="custom-date-input">
-                      <input
-                          type="text"
-                          value={
-                              selectedDate
-                                  ? selectedDate.toLocaleDateString("en-US")
-                                  : ""
-                          }
-                          readOnly 
-                      />
-                      <CalenderIcon />
+                    <input
+                      type="text"
+                      value={
+                        selectedDate
+                          ? selectedDate.toLocaleDateString("en-US")
+                          : ""
+                      }
+                      readOnly
+                    />
+                    <CalenderIcon />
                   </div>
-              }
+                }
               />
-              <CalenderIcon />
             </div>
+            <button type="submit" className="expense__form-button">
+              Add Expense
+            </button>
           </form>
         </div>
       </section>
