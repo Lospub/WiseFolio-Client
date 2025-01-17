@@ -1,0 +1,20 @@
+@use "../../styles/partials/variables" as *;
+@use "../../styles/partials/mixins" as *;
+
+.expense {
+    &__recent {
+        @include border-style(8px, $primary-color, $primary-boarder);
+        padding: 1rem;
+        box-shadow: 0 2px 8px $primary-boarder;
+        margin-top: 1rem;
+    }
+
+    &__recent-title {
+        @include font-style(1.25rem, 1.25, 600, $primary-text);
+        margin-bottom: 1rem;
+    }
+
+    &__recent-list-header {
+        display: none;
+    }
+}

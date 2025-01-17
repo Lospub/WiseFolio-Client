@@ -7,6 +7,7 @@ import CalenderIcon from "../../assets/icons/calendar.svg?react"
 import DropDownIcon from "../../assets/icons/dropdown.svg?react"
 import EditIcon from "../../assets/icons/edit.svg?react";
 import DeleteIcon from "../../assets/icons/delete.svg?react";
+import ListView from "../../components/Listview/Listview";
 
 const ExpenseTracking = () => {
   const [selectedDate, setSelectedDate] = useState<Date>(new Date());
@@ -81,30 +82,7 @@ const ExpenseTracking = () => {
           </form>
         </div>
         <div className="expense__recent">
-          <h2 className="expense__recent-title">Recent Expenses</h2>
-          <ul className="expense__recent-list">
-            {expenses.map((expense) => (
-              <li key={expense.id} className="expense__recent-item">
-                <div>
-                  <p className="expense__recent-description">{expense.description}</p>
-                  <p className="expense__recent-details">
-                    {expense.category} • {expense.date}
-                  </p>
-                </div>
-                <div className="expense__recent-actions">
-                  <span className="expense__recent-amount">${expense.amount.toFixed(2)}</span>
-                  <EditIcon
-                    className="expense__recent-icon expense__recent-edit"
-                    onClick={() => handleEdit(expense.id)}
-                  />
-                  <DeleteIcon
-                    className="expense__recent-icon expense__recent-delete"
-                    onClick={() => handleDelete(expense.id)}
-                  />
-                </div>
-              </li>
-            ))}
-          </ul>
+          <ListView expenses={expenses} onEdit={handleEdit} onDelete={handleDelete} />
         </div>
       </section>
     </div>
