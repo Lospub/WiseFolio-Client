@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import './Login.scss';
 import Footer from '../../components/Footer/Footer';
 import { loginUser } from '../../api/userServer';
+import Header from '../../components/Header/Header';
 
 
 const Login = () => {
@@ -23,7 +24,8 @@ const Login = () => {
   };
 
   return (
-    <>
+    <div className='container'>
+      <Header />
       <section className="login">
 
         {/* Login Card */}
@@ -87,7 +89,7 @@ const Login = () => {
         </div>
       </section>
       <Footer />
-    </>
+    </div>
 
   );
 };

@@ -8,6 +8,7 @@ import RobotIcon from "../../assets/icons/robot.svg?react";
 import SecurityIcon from "../../assets/icons/locker.svg?react";
 import RealTimeIcon from "../../assets/icons/time.svg?react";
 import { Link, useNavigate } from 'react-router-dom';
+import Header from "../../components/Header/Header";
 
 const Home = () => {
     const navigate = useNavigate();
@@ -21,7 +22,8 @@ const Home = () => {
     };
 
     return (
-        <>
+        <div className="container">
+            <Header />
             <div className="home">
 
                 {/* Home page hero section */}
@@ -78,7 +80,7 @@ const Home = () => {
                 </section>
             </div>
             <Footer />
-        </>
+        </div>
     );
 };
 

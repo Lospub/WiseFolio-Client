@@ -4,7 +4,6 @@
 .home {
     background-color: $primary-background;
     padding: 1rem;
-    min-height: 78vh;
 
     @include tablet {
         padding: 1.5rem 2rem;

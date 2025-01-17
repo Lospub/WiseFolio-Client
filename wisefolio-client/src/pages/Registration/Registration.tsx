@@ -5,6 +5,7 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "./Registration.scss";
 import { registerUser } from "../../api/userServer";
+import Header from "../../components/Header/Header";
 
 const Registration = () => {
   const [email, setEmail] = useState("");
@@ -41,7 +42,8 @@ const Registration = () => {
   };
 
   return (
-    <>
+    <div className="container">
+      <Header />
       {/* Registration Card */}
       <section className="registration">
         <div className="registration__card">
@@ -163,7 +165,7 @@ const Registration = () => {
         </div>
       </section>
       <Footer />
-    </>
+    </div>
   );
 };
 

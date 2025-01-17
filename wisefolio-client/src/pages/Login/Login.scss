@@ -2,19 +2,26 @@
 @use "../../styles/partials/mixins" as *;
 
 .login {
-    @include flex-style(center, center, center, nowrap, column);
+    @include flex-style(center, flex-start, left, nowrap, column);
     background-color: $primary-background;
-    min-height: 78vh;
     padding: 1rem;
 
+    @include tablet {
+        justify-content: center;
+    }
+
     &__card {
-        background: $primary-color;
-        padding: 2rem;
-        @include border-style(8px, $primary-color, $primary-boarder, 0);
-        box-shadow: 0 2px 10px $primary-shadow;
         width: 100%;
-        max-width: 600px;
-        text-align: center;
+        
+        @include tablet {
+            background: $primary-color;
+            padding: 2rem;
+            @include border-style(8px, $primary-color, $primary-boarder, 0);
+            box-shadow: 0 2px 10px $primary-shadow;
+            max-width: 600px;
+            text-align: center;
+        }
+        
     }
 
     &__title {

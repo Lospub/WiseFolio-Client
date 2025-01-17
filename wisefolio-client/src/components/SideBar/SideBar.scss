@@ -13,10 +13,10 @@
     background-color: $primary-color;
 
     @include tablet {
+        height: 100%;
         position: unset;
         padding: 1.5rem 2rem;
         width: 260px;
-        height: 100vh;
         border-top: none;
         border-right: 2px solid $primary-boarder;
     }
