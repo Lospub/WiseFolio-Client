@@ -9,11 +9,24 @@
     padding-top: 1rem;
     background-color: $secondary-background;
 
+    @include tablet {
+        position: unset;
+        padding: 1.5rem 2rem;
+        width: 260px;
+        height: 100vh
+    }
+
     &__menu {
         @include flex-style(flex-start, space-around, center, nowrap, row);
         list-style: none;
         height: 10vh;
         width: 100%;
+
+        @include tablet {
+            @include flex-style(flex-start, flex-start, left, nowrap, column);
+            height: auto;
+            gap: 1.5rem;
+        }
     }
 
     &__item {
@@ -23,7 +36,13 @@
     &__link {
         @include flex-style(center, center, center, nowrap, column);
         text-decoration: none;
-        @include font-style(0.75rem, 1.25, 500, $secondary-text); 
+        @include font-style(0.75rem, 1.25, 500, $secondary-text);
+
+        @include tablet {
+            @include flex-style(flex-start, center, center, nowrap, row);
+            font-size: 1rem;
+            gap: 0.25rem;
+        }
 
         &--active {
             color: $primary-select;
@@ -45,6 +64,7 @@
 
     &__icon {
         margin-bottom: 0.25rem;
+
         & svg {
             width: 20px;
             height: 20px;
