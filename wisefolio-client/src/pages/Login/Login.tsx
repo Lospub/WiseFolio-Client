@@ -1,12 +1,25 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import './Login.scss';
 import Footer from '../../components/Footer/Footer';
+import { loginUser } from '../../api/userServer';
+
 
 const Login = () => {
-  const handleSignIn = (e: React.FormEvent) => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const navigate = useNavigate();
+
+  const handleSignIn = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Sign-In Submitted");
+    try {
+      const token = await loginUser(email, password);
+      localStorage.setItem("idToken", token);
+      navigate("/dashboard");
+    } catch (error: any) {
+      console.error("An Error Occurred: ", error.message)
+      alert("Please check your email or password.")
+    }
   };
 
   return (
@@ -30,6 +43,8 @@ const Login = () => {
                 className="login__input"
                 type="email"
                 id="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
                 placeholder="Enter your email"
                 required
               />
@@ -44,6 +59,8 @@ const Login = () => {
                 className="login__input"
                 type="password"
                 id="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
                 placeholder="Enter your password"
                 required
               />
