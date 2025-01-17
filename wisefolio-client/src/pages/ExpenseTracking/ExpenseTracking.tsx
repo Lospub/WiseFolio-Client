@@ -1,15 +1,60 @@
+import { useState } from "react";
 import Sidebar from "../../components/SideBar/SideBar";
 import "./ExpenseTracking.scss"
+import DatePicker from "react-datepicker";
+import CalenderIcon from "../../assets/icons/calendar.svg?react"
 
-const ExpenseTracking  = () => {
-    return (
-        <div className="expense">
-            <Sidebar />
-            <section className="expense__form-section">
-                
-            </section>
+const ExpenseTracking = () => {
+  const [selectedDate, setSelectedDate] = useState<Date>(new Date());
+
+  return (
+    <div className="expense">
+      <Sidebar />
+      <section className="expense__section">
+        <div className="expense__form">
+          <h2 className="expense__form-title">Add New Expense</h2>
+          <form>
+            <input type="text" placeholder="Description" className="expense__input" />
+            <input type="number" placeholder="Amount" className="expense__input" />
+
+            <select className="expense__dropdown">
+              <option value="" disabled selected hidden>Please select category</option>
+              <option value="food">Food</option>
+              <option value="transport">Transport</option>
+              <option value="entertainment">Entertainment</option>
+              <option value="others">Others</option>
+            </select>
+
+            <div className="expense__date">
+              <DatePicker
+                selected={selectedDate}
+                onChange={(date: Date | null) => {
+                  if (date) {
+                      setSelectedDate(date);
+                  }}}
+                dateFormat="MM/dd/yyyy"
+                customInput={
+                  <div className="custom-date-input">
+                      <input
+                          type="text"
+                          value={
+                              selectedDate
+                                  ? selectedDate.toLocaleDateString("en-US")
+                                  : ""
+                          }
+                          readOnly 
+                      />
+                      <CalenderIcon />
+                  </div>
+              }
+              />
+              <CalenderIcon />
+            </div>
+          </form>
         </div>
-    );
+      </section>
+    </div>
+  );
 };
 
-export default ExpenseTracking ;
+export default ExpenseTracking;
