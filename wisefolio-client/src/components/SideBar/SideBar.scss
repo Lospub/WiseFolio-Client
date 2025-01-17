@@ -9,7 +9,7 @@
     height: 85px;
     padding-top: 1rem;
     border-top: 1px solid $primary-boarder;
-
+    background-color: $primary-color;
 
     @include tablet {
         position: unset;

@@ -2,7 +2,9 @@ import { useState } from "react";
 import Sidebar from "../../components/SideBar/SideBar";
 import "./ExpenseTracking.scss"
 import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 import CalenderIcon from "../../assets/icons/calendar.svg?react"
+import DropDownIcon from "../../assets/icons/dropdown.svg?react"
 
 const ExpenseTracking = () => {
   const [selectedDate, setSelectedDate] = useState<Date>(new Date());
@@ -29,6 +31,7 @@ const ExpenseTracking = () => {
               <option value="entertainment">Entertainment</option>
               <option value="others">Others</option>
             </select>
+            <DropDownIcon className="expense__dropdown-icon"/>
 
             <div className="expense__date">
               <DatePicker
@@ -40,8 +43,9 @@ const ExpenseTracking = () => {
                 }}
                 dateFormat="MM/dd/yyyy"
                 customInput={
-                  <div className="custom-date-input">
+                  <div className="expense__custom">
                     <input
+                      className="expense__date-input"
                       type="text"
                       value={
                         selectedDate
@@ -50,12 +54,12 @@ const ExpenseTracking = () => {
                       }
                       readOnly
                     />
-                    <CalenderIcon />
+                    <CalenderIcon className="expense__date-icon"/>
                   </div>
                 }
               />
             </div>
-            <button type="submit" className="expense__form-button">
+            <button type="submit" className="expense__button">
               Add Expense
             </button>
           </form>

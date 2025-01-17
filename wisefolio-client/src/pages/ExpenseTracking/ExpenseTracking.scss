@@ -2,8 +2,102 @@
 @use "../../styles/partials/mixins" as *;
 
 .expense {
+    width: 100%;
+    height: 100vh;
+    background-color: $primary-background;
 
     @include tablet {
         @include flex-style(flex-start, flex-start, unset, nowrap, row);
     }
+
+    &__section {
+        width: 100%;
+        padding: 1rem;
+    }
+
+    &__form {
+        @include border-style(8px, $primary-color, $primary-boarder);
+        padding: 1rem;
+        box-shadow: 0 2px 8px $primary-boarder;
+    }
+
+    &__form-title {
+        @include font-style(1.25rem, 1.25, 600, $primary-text);
+        margin-bottom: 1rem;
+    }
+
+    &__input {
+        width: 100%;
+        padding: 10px 14px;
+        margin-bottom: 10px;
+        @include border-style(4px, $primary-color, $primary-boarder, 2px);
+    }
+
+    &__dropdown {
+        position: relative;
+        width: 100%;
+        padding: 10px 14px;
+        @include border-style(4px, $primary-color, $primary-boarder, 2px);
+        appearance: none;
+        background: none;
+        margin-bottom: 10px;
+    }
+
+    select:invalid {
+        color: #999999;
+    }
+
+    option {
+        color: black;
+    }
+
+    &__dropdown-icon {
+        position: absolute;
+        right: 45px;
+        top: 38.75%;
+        transform: translateY(-50%);
+    }
+
+    &__date {
+        position: relative;
+    }
+
+    &__custom {
+        display: flex;
+        align-items: center;
+        position: relative;
+    }
+
+    &__date-input {
+        width: 100%;
+        padding: 10px 14px;
+        @include border-style(4px, $primary-color, $primary-boarder, 2px);
+    }
+
+    &__date-icon {
+        position: absolute;
+        right: 10px;
+        cursor: pointer;
+    }
+
+    &__button {
+        @include button-style($primary-select, 0.85rem 1rem, none, 6px);
+        @include font-style(1rem, auto, 600, $primary-color);
+        width: 100%;
+        margin-top: 1rem;
+
+        &:hover {
+            background-color: $primary-text;
+        }
+    }
+}
+
+.react-datepicker {
+    z-index: 1000;
+    @include border-style(4px, $primary-color, $primary-boarder, 1px);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.react-datepicker-wrapper {
+    width: 100%;
 }
