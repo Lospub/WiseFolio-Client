@@ -30,7 +30,7 @@ const Sidebar = () => {
             <NavLink
               to={item.path}
               className={({ isActive }) =>
-                `sidebar__link ${isActive ? 'sidebar__menu-item--active' : ''}`}>
+                `sidebar__link ${isActive ? 'sidebar__link--active' : ''}`}>
               <span className="sidebar__icon">{item.icon}</span>
               <span className="sidebar__label">{item.label}</span>
             </NavLink>

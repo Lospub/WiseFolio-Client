@@ -1,0 +1,54 @@
+@use "../../styles/partials/variables" as *;
+@use "../../styles/partials/mixins" as *;
+
+
+.sidebar {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    padding-top: 1rem;
+    background-color: $secondary-background;
+
+    &__menu {
+        @include flex-style(flex-start, space-around, center, nowrap, row);
+        list-style: none;
+        height: 10vh;
+        width: 100%;
+    }
+
+    &__item {
+        flex: 1;
+    }
+
+    &__link {
+        @include flex-style(center, center, center, nowrap, column);
+        text-decoration: none;
+        @include font-style(0.75rem, 1.25, 500, $secondary-text); 
+
+        &--active {
+            color: $primary-select;
+
+            .sidebar__icon svg path {
+                fill: $primary-select;
+            }
+        }
+
+        &:hover {
+            color: $primary-select;
+            transform: scale(1.1);
+
+            .sidebar__icon svg path {
+                fill: $primary-select;
+            }
+        }
+    }
+
+    &__icon {
+        margin-bottom: 0.25rem;
+        & svg {
+            width: 20px;
+            height: 20px;
+        }
+    }
+
+}
