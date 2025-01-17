@@ -5,6 +5,7 @@ import SavingIcon from "../../assets/icons/saving-side.svg?react";
 import './Sidebar.scss';
 import { NavLink } from "react-router-dom";
 
+// Create Menu Item interface
 interface MenuItem {
   icon: React.ReactElement;
   label: string;
@@ -12,6 +13,7 @@ interface MenuItem {
 }
 
 const Sidebar = () => {
+  // implement the items
   const menuItems: MenuItem[] = [
     { icon: <DashboardIcon />, label: 'Dashboard', path: '/dashboard' },
     { icon: <ExpenseIcon />, label: 'Expense Tracking', path: '/expenses' },
@@ -22,6 +24,8 @@ const Sidebar = () => {
   return (
     <div className="sidebar">
       <ul className="sidebar__menu">
+        
+        {/* map the sidebar content */}
         {menuItems.map((item, index) => (
           <li
             key={index}
