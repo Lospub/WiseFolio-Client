@@ -3,19 +3,20 @@ import ExpenseIcon from "../../assets/icons/expense-side.svg?react";
 import BudgetIcon from "../../assets/icons/budget-side.svg?react";
 import SavingIcon from "../../assets/icons/saving-side.svg?react";
 import './Sidebar.scss';
+import { NavLink } from "react-router-dom";
 
 interface MenuItem {
   icon: React.ReactElement;
   label: string;
-  active?: boolean;
+  path: string;
 }
 
 const Sidebar = () => {
   const menuItems: MenuItem[] = [
-    { icon: <DashboardIcon />, label: 'Dashboard', active: true },
-    { icon: <ExpenseIcon />, label: 'Expense Tracking' },
-    { icon: <BudgetIcon />, label: 'Budget Management' },
-    { icon: <SavingIcon />, label: 'Savings Goals' },
+    { icon: <DashboardIcon />, label: 'Dashboard', path: '/dashboard' },
+    { icon: <ExpenseIcon />, label: 'Expense Tracking', path: '/expenses' },
+    { icon: <BudgetIcon />, label: 'Budget Management', path: '/budget' },
+    { icon: <SavingIcon />, label: 'Saving Goals', path: '/savings' },
   ];
 
   return (
@@ -24,10 +25,15 @@ const Sidebar = () => {
         {menuItems.map((item, index) => (
           <li
             key={index}
-            className={`sidebar__item ${item.active ? 'sidebar__item--active' : ''}`}
+            className="sidebar__item"
           >
-            <span className="sidebar__icon">{item.icon}</span>
-            <span className="sidebar__label">{item.label}</span>
+            <NavLink
+              to={item.path}
+              className={({ isActive }) =>
+                `sidebar__link ${isActive ? 'sidebar__menu-item--active' : ''}`}>
+              <span className="sidebar__icon">{item.icon}</span>
+              <span className="sidebar__label">{item.label}</span>
+            </NavLink>
           </li>
         ))}
       </ul>
