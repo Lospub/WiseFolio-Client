@@ -6,6 +6,7 @@ import CalenderIcon from "../../assets/icons/calendar.svg?react"
 
 const ExpenseTracking = () => {
   const [selectedDate, setSelectedDate] = useState<Date>(new Date());
+  const [category, setCategory] = useState<string>("");
 
   return (
     <div className="expense">
@@ -17,8 +18,12 @@ const ExpenseTracking = () => {
             <input type="text" placeholder="Description" className="expense__input" />
             <input type="number" placeholder="Amount" className="expense__input" />
 
-            <select className="expense__dropdown">
-              <option value="" disabled selected hidden>Please select category</option>
+            <select
+              className="expense__dropdown"
+              value={category}
+              onChange={(e) => setCategory(e.target.value)}
+            >
+              <option value="" disabled hidden>Please select category</option>
               <option value="food">Food</option>
               <option value="transport">Transport</option>
               <option value="entertainment">Entertainment</option>
