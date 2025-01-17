@@ -5,7 +5,7 @@ import Registration from './pages/Registration/Registration';
 import Login from './pages/Login/Login';
 import Dashboard from './pages/Dashboard';
 import ExpenseTracking from './pages/ExpenseTracking/ExpenseTracking';
-import BudgetManagement from './pages/BudgetManagement';
+import BudgetManagement from './pages/BudgetManagement/BudgetManagement';
 import SavingsGoals from './pages/SavingsGoals';
 import Profile from './pages/Profile';
 
@@ -21,7 +21,7 @@ function App() {
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/expenses" element={<ExpenseTracking />} />
           <Route path="/budgets" element={<BudgetManagement />} />
-          <Route path="/goals" element={<SavingsGoals />} />
+          <Route path="/savings" element={<SavingsGoals />} />
           <Route path="/profile" element={<Profile />} />
         </Routes>
       </BrowserRouter>

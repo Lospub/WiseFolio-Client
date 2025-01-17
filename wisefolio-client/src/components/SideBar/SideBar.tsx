@@ -17,7 +17,7 @@ const Sidebar = () => {
   const menuItems: MenuItem[] = [
     { icon: <DashboardIcon />, label: 'Dashboard', path: '/dashboard' },
     { icon: <ExpenseIcon />, label: 'Expense Tracking', path: '/expenses' },
-    { icon: <BudgetIcon />, label: 'Budget Management', path: '/budget' },
+    { icon: <BudgetIcon />, label: 'Budget Management', path: '/budgets' },
     { icon: <SavingIcon />, label: 'Saving Goals', path: '/savings' },
   ];
 
