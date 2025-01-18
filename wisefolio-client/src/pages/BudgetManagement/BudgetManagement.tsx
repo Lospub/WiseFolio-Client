@@ -25,7 +25,7 @@ const BudgetManagement = () => {
                 onChange={(e) => setCategory(e.target.value)}
                 required
               >
-                <option value="" disabled hidden>Please select category</option>
+                <option value="" disabled hidden>Category</option>
                 <option value="food">Food</option>
                 <option value="transport">Transport</option>
                 <option value="entertainment">Entertainment</option>
@@ -34,15 +34,14 @@ const BudgetManagement = () => {
               <DropDownIcon className="budget__dropdown-icon" />
             </div>
 
-            <div className="form-group">
-              <input
-                type="number"
-                id="amount"
-                value={amount}
-                onChange={(e) => setAmount(e.target.value)}
-                placeholder="Enter amount"
-              />
-            </div>
+            <input
+              className="budget__input"
+              type="number"
+              id="amount"
+              value={amount}
+              onChange={(e) => setAmount(e.target.value)}
+              placeholder="Enter amount"
+            />
 
             <div className="budget__dropdown-container">
               <select
@@ -50,10 +49,9 @@ const BudgetManagement = () => {
                 className="budget__dropdown"
                 value={duration}
                 onChange={(e) => setDuration(e.target.value)}
+                required
               >
-                <option value="" disabled hidden>
-                  Please select duration
-                </option>
+                <option value="" disabled hidden>Duration</option>
                 <option value="weekly">Weekly</option>
                 <option value="monthly">Monthly</option>
                 <option value="yearly">Yearly</option>

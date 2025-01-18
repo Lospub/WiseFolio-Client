@@ -44,7 +44,7 @@ const ExpenseTracking = () => {
                 onChange={(e) => setCategory(e.target.value)}
                 required
               >
-                <option value="" disabled hidden>Please select category</option>
+                <option value="" disabled hidden>Category</option>
                 <option value="food">Food</option>
                 <option value="transport">Transport</option>
                 <option value="entertainment">Entertainment</option>

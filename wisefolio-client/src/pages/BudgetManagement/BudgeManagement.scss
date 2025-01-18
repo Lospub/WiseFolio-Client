@@ -2,8 +2,99 @@
 @use "../../styles/partials/mixins" as *;
 
 .budget {
-    
+
+    width: 100%;
+    background-color: $primary-background;
+
     @include tablet {
         @include flex-style(flex-start, flex-start, unset, nowrap, row);
+    }
+
+    &__section {
+        width: 100%;
+        padding: 1rem;
+
+        @include desktop {
+            padding: 2rem 12rem;
+        }
+    }
+
+    &__form-title {
+        @include font-style(1.25rem, 1.25, 600, $primary-text);
+        margin-bottom: 1rem;
+        width: 100%;
+    }
+
+    &__form-details {
+        @include border-style(8px, $primary-color, $primary-boarder);
+        padding: 1rem;
+        box-shadow: 0 2px 8px $primary-boarder;
+        @include tablet {
+            @include flex-style(flex-start, space-between, left, wrap, row);
+            width: 100%
+        }
+    }
+
+    &__input {
+        width: 100%;
+        padding: 10px 14px;
+        margin-bottom: 10px;
+        @include border-style(4px, $primary-color, $primary-boarder, 2px);
+
+        @include tablet {
+            width: 30%;
+        }
+
+        &::placeholder {
+            color: $placeholder-text;
+        }
+    }
+
+    &__dropdown-container {
+        position: relative;
+        @include flex-style(center, center, unset, nowrap, row);
+        width: 100%;
+        
+        @include tablet {
+            width: 33%;
+        }
+    }
+
+    &__dropdown {
+        width: 100%;
+        padding: 10px 14px;
+        @include border-style(4px, $primary-color, $primary-boarder, 2px);
+        appearance: none;
+        background: none;
+        margin-bottom: 10px;
+    }
+
+    select:invalid {
+        color: $placeholder-text;
+    }
+
+    option {
+        color: $primary-text;
+    }
+
+    &__dropdown-icon {
+        position: absolute;
+        right: 15px;
+        transform: translateY(-50%);
+    }
+
+    &__button {
+        @include button-style($primary-select, 0.85rem 1rem, none, 6px);
+        @include font-style(1rem, auto, 600, $primary-color);
+        width: 100%;
+        margin-top: 1rem;
+
+        @include tablet {
+            width: 150px;
+        }
+
+        &:hover {
+            background-color: $primary-text;
+        }
     }
 }
