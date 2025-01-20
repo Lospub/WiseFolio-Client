@@ -1,0 +1,46 @@
+@use "../../styles/partials/variables" as *;
+@use "../../styles/partials/mixins" as *;
+
+.card {
+    @include border-style(8px, $primary-color, $primary-boarder);
+    padding: 1rem;
+    margin-bottom: 1rem;
+    box-shadow: 0 2px 4px $primary-shadow;
+
+    &__header {
+        @include flex-style(flex-end, space-between, unset, nowrap, row);
+        margin-bottom: 0.5rem;
+    }
+
+    &__category {
+        @include font-style(1rem, 1, 600, $primary-text);
+        margin-bottom: 0.5rem
+    }
+
+    &__date {
+        @include font-style(0.875rem, 0.875, 400, $secondary-text);
+    }
+
+    &__actions {
+        @include flex-style(center, center, unset, nowrap, row);
+        gap: 0.5rem;
+        margin-left: 8px;
+        cursor: pointer;
+    }
+
+    &__progress-bar {
+        width: 100%;
+        height: 0.5rem;
+        background: $secondary-background;
+        border-radius: 4px;
+        overflow: hidden;
+        margin: 8px 0;
+    }
+
+    &__progress {
+        height: 100%;
+        background: $primary-select;
+        border-radius: 4px;
+        overflow: hidden;
+    }
+}

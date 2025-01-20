@@ -97,4 +97,11 @@
             background-color: $primary-text;
         }
     }
+
+    &__card-header {
+        @include font-style(1.25rem, 1.25, 600, $primary-text);
+        margin: 1rem 0;
+        padding-left: 1rem;
+        width: 100%;
+    }
 }

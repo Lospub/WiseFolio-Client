@@ -10,7 +10,7 @@ type Component = {
 
 const CardList = ({ componentList }: { componentList: Component[] }) => {
     return (
-        <div className="budget-list">
+        <div className="card-list">
             {componentList.map((component, index) => (
                 <Card key={index} component={component} />
             ))}

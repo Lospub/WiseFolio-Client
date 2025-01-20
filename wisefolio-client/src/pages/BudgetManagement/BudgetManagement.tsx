@@ -83,7 +83,7 @@ const BudgetManagement = () => {
               Create Budget
             </button>
           </form>
-          <h2>Your Budgets</h2>
+          <h2 className="budget__card-header">Your Budgets</h2>
           <CardList componentList={budgets} />
         </section>
       </div>
