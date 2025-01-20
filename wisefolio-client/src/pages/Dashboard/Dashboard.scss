@@ -1,0 +1,11 @@
+@use "../../styles/partials/variables" as *;
+@use "../../styles/partials/mixins" as *;
+
+.dashboard {
+    width: 100%;
+    background-color: $primary-background;
+
+    @include tablet {
+        @include flex-style(flex-start, flex-start, unset, nowrap, row);
+    }
+}
