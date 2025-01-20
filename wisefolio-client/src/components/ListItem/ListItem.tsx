@@ -29,11 +29,11 @@ const ListItem: (React.FC<ListItemProps>) = ({
         <article className="expense__recent-container">
           <p className="expense__recent-details">{category} </p>
           <p className="expense__recent-dot">•</p>
-          <p className="expense__recent-details">{date}</p>
+          <p className="expense__recent-details">{date.split('T')[0]}</p>
         </article>
       </article>
       <div className="expense__recent-actions">
-        <span className="expense__recent-amount">${amount.toFixed(2)}</span>
+        <span className="expense__recent-amount">${amount}</span>
         <EditIcon
           className="expense__recent-icon expense__recent-edit"
           onClick={() => onEdit(id)}

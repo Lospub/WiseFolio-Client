@@ -14,8 +14,8 @@ const Login = () => {
   const handleSignIn = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      await loginUser(email, password);
-      localStorage.setItem("email", email);
+      const idToken =await loginUser(email, password);
+      localStorage.setItem('idToken', idToken);
       navigate("/dashboard");
     } catch (error: any) {
       console.error("An Error Occurred: ", error.message)
