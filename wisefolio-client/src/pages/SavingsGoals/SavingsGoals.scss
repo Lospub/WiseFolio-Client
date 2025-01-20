@@ -8,4 +8,93 @@
     @include tablet {
         @include flex-style(flex-start, flex-start, unset, nowrap, row);
     }
+
+    &__section {
+        width: 100%;
+        padding: 1rem;
+
+        @include desktop {
+            padding: 2rem 12rem;
+        }
+    }
+
+    &__form-title {
+        @include font-style(1.25rem, 1.25, 600, $primary-text);
+        margin-bottom: 1rem;
+        width: 100%;
+    }
+
+    &__form-details {
+        @include border-style(8px, $primary-color, $primary-boarder);
+        padding: 1rem;
+        box-shadow: 0 2px 8px $primary-boarder;
+        @include tablet {
+            @include flex-style(flex-start, space-between, left, wrap, row);
+            width: 100%
+        }
+    }
+
+    &__input {
+        width: 100%;
+        padding: 10px 14px;
+        margin-bottom: 10px;
+        @include border-style(4px, $primary-color, $primary-boarder, 2px);
+
+        @include tablet {
+            width: 32%;
+        }
+
+        &::placeholder {
+            color: $placeholder-text;
+        }
+    }
+
+    &__date {
+        position: relative;
+
+        @include tablet {
+            width: 32%;
+        }
+    }
+
+    &__custom {
+        @include flex-style(center, center, unset, nowrap, row);
+        position: relative;
+    }
+
+    &__date-input {
+        width: 100%;
+        padding: 10px 14px;
+        @include border-style(4px, $primary-color, $primary-boarder, 2px);
+    }
+
+    &__date-icon {
+        position: absolute;
+        right: 10px;
+        cursor: pointer;
+    }
+
+    &__button {
+        @include button-style($primary-select, 0.85rem 1rem, none, 6px);
+        @include font-style(1rem, auto, 600, $primary-color);
+        width: 100%;
+
+        @include tablet {
+            width: 150px;
+        }
+
+        &:hover {
+            background-color: $primary-text;
+        }
+    }
+}
+
+.react-datepicker {
+    z-index: 1000;
+    @include border-style(4px, $primary-color, $primary-boarder, 1px);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.react-datepicker-wrapper {
+    width: 100%;
 }
