@@ -2,12 +2,32 @@ import { useState } from "react";
 import Header from "../../components/Header/Header";
 import Sidebar from "../../components/SideBar/SideBar";
 import DropDownIcon from "../../assets/icons/dropdown.svg?react"
-import "./BudgeManagement.scss"
+import "./BudgetManagement.scss"
+import CardList from "../../components/CardList/CardList";
 
 const BudgetManagement = () => {
   const [category, setCategory] = useState("");
   const [amount, setAmount] = useState("");
   const [duration, setDuration] = useState("");
+  const [budgets, setBudgets] = useState<Budget[]>([{
+    category: "Transportation",
+    date: new Date(),
+    amountUsed: 225,
+    amountLimit: 500,
+},
+{
+    category: "Food & Dining",
+    date: new Date(),
+    amountUsed: 750,
+    amountLimit: 1000,
+},]);
+
+  type Budget = {
+    category: string;
+    date: Date;
+    amountUsed: number;
+    amountLimit: number;
+};
 
   return (
     <div className="container">
@@ -63,6 +83,8 @@ const BudgetManagement = () => {
               Create Budget
             </button>
           </form>
+          <h2>Your Budgets</h2>
+          <CardList componentList={budgets} />
         </section>
       </div>
     </div>
