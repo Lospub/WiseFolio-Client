@@ -10,22 +10,22 @@ const BudgetManagement = () => {
   const [amount, setAmount] = useState("");
   const [duration, setDuration] = useState("");
   const [budgets, setBudgets] = useState<Budget[]>([{
-    category: "Transportation",
+    name: "Transportation",
     date: new Date(),
-    amountUsed: 225,
+    amount: 225,
     amountLimit: 500,
 },
 {
-    category: "Food & Dining",
+    name: "Food & Dining",
     date: new Date(),
-    amountUsed: 750,
+    amount: 750,
     amountLimit: 1000,
 },]);
 
   type Budget = {
-    category: string;
+    name: string;
     date: Date;
-    amountUsed: number;
+    amount: number;
     amountLimit: number;
 };
 

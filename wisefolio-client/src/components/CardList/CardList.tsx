@@ -1,10 +1,10 @@
-import "./CardList.scss";
 import Card from "../Card/Card";
+import "./CardList.scss";
 
 type Component = {
-    category: string;
+    name: string;
     date: Date;
-    amountUsed: number;
+    amount: number;
     amountLimit: number;
 };
 

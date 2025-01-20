@@ -43,4 +43,10 @@
         border-radius: 4px;
         overflow: hidden;
     }
+
+    &__usage {
+        @include font-style(0.75rem, 0.75, 400, $secondary-text);
+        margin-top: 0.5rem;
+        @include flex-style(flex-end, flex-end, unset, nowrap, row);
+    }
 }

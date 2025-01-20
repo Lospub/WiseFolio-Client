@@ -3,20 +3,20 @@ import EditIcon from "../../assets/icons/edit.svg?react";
 import DeleteIcon from "../../assets/icons/delete.svg?react";
 
 type CardComponent = {
-  category: string;
+  name: string;
   date: Date;
-  amountUsed: number;
+  amount: number;
   amountLimit: number;
 };
 
 const Card = ({ component }: { component: CardComponent }) => {
-  const usagePercentage = (component.amountUsed / component.amountLimit) * 100;
+  const usagePercentage = (component.amount / component.amountLimit) * 100;
 
   return (
     <div className="card">
       <div className="card__header">
         <div className="card__title">
-          <h3 className="card__category">{component.category}</h3>
+          <h3 className="card__category">{component.name}</h3>
           <p className="card__date">
             {component.date.toLocaleDateString()}
           </p>
@@ -32,9 +32,9 @@ const Card = ({ component }: { component: CardComponent }) => {
           style={{ width: `${usagePercentage}%` }}
         ></div>
       </div>
-      <p>
-        ${component.amountUsed} / ${component.amountLimit} &nbsp;
-        <span>{usagePercentage.toFixed(0)}% used</span>
+      <p className="card__usage">
+        ${component.amount} / ${component.amountLimit} &nbsp;
+        <span>{usagePercentage.toFixed(0)}% </span>
       </p>
     </div>
   );
