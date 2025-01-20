@@ -6,7 +6,7 @@ import Login from './pages/Login/Login';
 import Dashboard from './pages/Dashboard';
 import ExpenseTracking from './pages/ExpenseTracking/ExpenseTracking';
 import BudgetManagement from './pages/BudgetManagement/BudgetManagement';
-import SavingsGoals from './pages/SavingsGoals';
+import SavingsGoals from './pages/SavingsGoals/SavingsGoals';
 import Profile from './pages/Profile';
 
 function App() {
