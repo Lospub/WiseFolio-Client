@@ -13,9 +13,10 @@ type CardComponent = {
 type CardProps = {
   component: CardComponent;
   onDelete: () => void;
+  onEdit: () => void;
 };
 
-const Card = ({ component, onDelete }: CardProps) => {
+const Card = ({ component, onDelete, onEdit }: CardProps) => {
   const usagePercentage = (component.amount / component.amountLimit) * 100;
 
   return (
@@ -28,7 +29,7 @@ const Card = ({ component, onDelete }: CardProps) => {
           </p>
         </div>
         <div className="card__actions">
-          <EditIcon className="card__edit" />
+          <EditIcon className="card__edit" onClick={onEdit}/>
           <DeleteIcon className="card__delete" onClick={onDelete} /> 
         </div>
       </div>

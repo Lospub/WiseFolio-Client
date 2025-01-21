@@ -104,4 +104,39 @@
         padding-left: 1rem;
         width: 100%;
     }
+
+    &__date {
+        position: relative;
+
+        @include tablet {
+            width: 33%;
+        }
+    }
+
+    &__custom {
+        @include flex-style(center, center, unset, nowrap, row);
+        position: relative;
+    }
+
+    &__date-input {
+        width: 100%;
+        padding: 10px 14px;
+        @include border-style(4px, $primary-color, $primary-boarder, 2px);
+    }
+
+    &__date-icon {
+        position: absolute;
+        right: 10px;
+        cursor: pointer;
+    }
+}
+
+.react-datepicker {
+    z-index: 1000;
+    @include border-style(4px, $primary-color, $primary-boarder, 1px);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.react-datepicker-wrapper {
+    width: 100%;
 }

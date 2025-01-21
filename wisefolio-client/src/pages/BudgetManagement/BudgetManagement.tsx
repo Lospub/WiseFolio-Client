@@ -2,17 +2,21 @@ import { useState, useEffect } from "react";
 import Header from "../../components/Header/Header";
 import Sidebar from "../../components/SideBar/SideBar";
 import DropDownIcon from "../../assets/icons/dropdown.svg?react";
+import CalenderIcon from "../../assets/icons/calendar.svg?react";
+import DatePicker from "react-datepicker"; 
+import "react-datepicker/dist/react-datepicker.css"; 
 import "./BudgetManagement.scss";
 import CardList from "../../components/CardList/CardList";
-import { calculateBudgetSpent, createBudget, deleteBudget, getBudgetsByUserId } from "../../api/budgetServer";
-
+import { deleteBudget, calculateBudgetSpent, createBudget, getBudgetsByUserId, updateBudget } from "../../api/budgetServer";
 
 const BudgetManagement = () => {
   const [category, setCategory] = useState("");
   const [amountLimit, setAmountLimit] = useState("");
   const [duration, setDuration] = useState("");
+  const [selectedDate, setSelectedDate] = useState<Date | null>(null); 
   const [budgets, setBudgets] = useState<Budget[]>([]);
-
+  const [isEditing, setIsEditing] = useState(false); 
+  const [editBudgetId, setEditBudgetId] = useState<string | null>(null);
 
   type Budget = {
     id: string;
@@ -26,15 +30,11 @@ const BudgetManagement = () => {
   if (!userId) {
     throw new Error("userID is null");
   }
-  
-  // Fetch budgets on component mount
+
   useEffect(() => {
     const fetchBudgets = async () => {
       try {
-
         const fetchedBudgets = await getBudgetsByUserId(userId.toString());
-
-        // Fetch spent amount for each budget
         const budgetsWithSpent = await Promise.all(
           fetchedBudgets.map(async (budget: any) => {
             const { spent } = await calculateBudgetSpent(budget.id);
@@ -47,83 +47,119 @@ const BudgetManagement = () => {
             };
           })
         );
-
         setBudgets(budgetsWithSpent);
       } catch (error) {
         console.error("Error fetching budgets:", error);
       }
     };
-
     fetchBudgets();
   }, []);
 
   // Handle form submission
-  const handleCreateBudget = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     const start_date = new Date();
     let end_date;
 
-    // Calculate end date based on duration
-    switch (duration) {
-      case "weekly":
-        end_date = new Date();
-        end_date.setDate(start_date.getDate() + 7);
-        break;
-      case "monthly":
-        end_date = new Date();
-        end_date.setMonth(start_date.getMonth() + 1);
-        break;
-      case "yearly":
-        end_date = new Date();
-        end_date.setFullYear(start_date.getFullYear() + 1);
-        break;
-      default:
-        return; 
+    if (isEditing) {
+      end_date = selectedDate;
+    } else {
+      // Calculate end date based on duration for new budgets
+      switch (duration) {
+        case "weekly":
+          end_date = new Date();
+          end_date.setDate(start_date.getDate() + 7);
+          break;
+        case "monthly":
+          end_date = new Date();
+          end_date.setMonth(start_date.getMonth() + 1);
+          break;
+        case "yearly":
+          end_date = new Date();
+          end_date.setFullYear(start_date.getFullYear() + 1);
+          break;
+        default:
+          return;
+      }
     }
 
-    try {
-      const newBudget = await createBudget({
-        user_id: userId,
-        category: category,
-        amount: parseFloat(amountLimit),
-        start_date: start_date.toISOString().split("T")[0],
-        end_date: end_date.toISOString().split("T")[0],
-      });
+    if (!end_date) return;
 
-      const { spent } = await calculateBudgetSpent(newBudget.id);
+    try {
+      if (isEditing && editBudgetId) {
+        await updateBudget(editBudgetId, {
+          category,
+          amount: parseFloat(amountLimit),
+          start_date: start_date.toISOString().split("T")[0],
+          end_date: end_date.toISOString().split("T")[0],
+        });
+
+        setBudgets((prevBudgets) =>
+          prevBudgets.map((budget) =>
+            budget.id === editBudgetId
+              ? {
+                  ...budget,
+                  name: category,
+                  date: new Date(end_date),
+                  amountLimit: parseFloat(amountLimit),
+                }
+              : budget
+          )
+        );
+
+        setIsEditing(false);
+        setEditBudgetId(null);
+      } else {
+        const newBudget = await createBudget({
+          user_id: userId,
+          category,
+          amount: parseFloat(amountLimit),
+          start_date: start_date.toISOString().split("T")[0],
+          end_date: end_date.toISOString().split("T")[0],
+        });
+
+        const { spent } = await calculateBudgetSpent(newBudget.id);
 
       // Add new budget to the list
-      setBudgets((prevBudgets) => [
-        ...prevBudgets,
-        {
-          id: newBudget.id,
-          name: newBudget.category, 
-          date: new Date(newBudget.end_date), 
-          amount: spent, 
-          amountLimit: newBudget.amount, 
-        },
-      ]);
+        setBudgets((prevBudgets) => [
+          ...prevBudgets,
+          {
+            id: newBudget.id,
+            name: newBudget.category,
+            date: new Date(newBudget.end_date),
+            amount: spent,
+            amountLimit: newBudget.amount,
+          },
+        ]);
+      }
 
       // Reset form
       setCategory("");
       setAmountLimit("");
       setDuration("");
+      setSelectedDate(null);
     } catch (error) {
-      console.error("Error creating budget:", error);
+      console.error("Error submitting budget:", error);
     }
   };
 
-  // Handle delete budget
+  const handleEdit = async (id: string) => {
+    const budgetToEdit = budgets.find((budget) => budget.id === id);
+    if (budgetToEdit) {
+      setCategory(budgetToEdit.name);
+      setAmountLimit(budgetToEdit.amountLimit.toString());
+      setSelectedDate(budgetToEdit.date); 
+      setIsEditing(true);
+      setEditBudgetId(id);
+    }
+  };
+
   const handleDelete = async (index: number) => {
     try {
       const budgetToDelete = budgets[index];
-
       await deleteBudget(budgetToDelete.id);
-
-      setBudgets((prevBudgets) =>
-        prevBudgets.filter((_, i) => i !== index)
-      );
+      setBudgets((prevBudgets) => prevBudgets.filter((_, i) => i !== index));
     } catch (error) {
       console.error("Error deleting budget:", error);
     }
@@ -135,8 +171,10 @@ const BudgetManagement = () => {
       <div className="budget">
         <Sidebar />
         <section className="budget__section">
-          <form className="budget__form-details" onSubmit={handleCreateBudget}>
-            <h2 className="budget__form-title">Create New Budget</h2>
+          <form className="budget__form-details" onSubmit={handleSubmit}>
+            <h2 className="budget__form-title">
+              {isEditing ? "Edit Budget" : "Create New Budget"}
+            </h2>
             <div className="budget__dropdown-container">
               <select
                 id="category"
@@ -163,28 +201,57 @@ const BudgetManagement = () => {
               placeholder="Enter amount limit"
             />
 
-            <div className="budget__dropdown-container">
-              <select
-                id="duration"
-                className="budget__dropdown"
-                value={duration}
-                onChange={(e) => setDuration(e.target.value)}
-                required
-              >
+            {isEditing ? (
+              <div className="budget__date">
+                <DatePicker
+                  selected={selectedDate}
+                  onChange={(date: Date | null) => setSelectedDate(date)}
+                  dateFormat="MM/dd/yyyy"
+                  customInput={
+                    <div className="budget__custom">
+                      <input
+                        className="budget__date-input"
+                        type="text"
+                        value={
+                          selectedDate
+                            ? selectedDate.toLocaleDateString("en-US")
+                            : ""
+                        }
+                        readOnly
+                      />
+                      <CalenderIcon className="budget__date-icon" />
+                    </div>
+                  }
+                />
+              </div>
+            ) : (
+              <div className="budget__dropdown-container">
+                <select
+                  id="duration"
+                  className="budget__dropdown"
+                  value={duration}
+                  onChange={(e) => setDuration(e.target.value)}
+                  required
+                >
                 <option value="" disabled hidden>Duration</option>
-                <option value="weekly">Weekly</option>
-                <option value="monthly">Monthly</option>
-                <option value="yearly">Yearly</option>
-              </select>
-              <DropDownIcon className="budget__dropdown-icon" />
-            </div>
+                  <option value="weekly">Weekly</option>
+                  <option value="monthly">Monthly</option>
+                  <option value="yearly">Yearly</option>
+                </select>
+                <DropDownIcon className="budget__dropdown-icon" />
+              </div>
+            )}
 
             <button type="submit" className="budget__button">
-              Create Budget
+              {isEditing ? "Update Budget" : "Create Budget"}
             </button>
           </form>
           <h2 className="budget__card-header">Your Budgets</h2>
-          <CardList componentList={budgets} handleDelete={handleDelete}/>
+          <CardList
+            componentList={budgets}
+            handleDelete={handleDelete}
+            handleEdit={handleEdit}
+          />
         </section>
       </div>
     </div>

@@ -12,9 +12,10 @@ type Component = {
 type CardListProps = {
     componentList: Component[];
     handleDelete: (index: number) => void;
+    handleEdit: (id: string) => void;
 };
 
-const CardList = ({ componentList, handleDelete }: CardListProps) => {
+const CardList = ({ componentList, handleDelete, handleEdit }: CardListProps) => {
     return (
         <div className="card-list">
             {componentList.map((component, index) => (
@@ -22,6 +23,7 @@ const CardList = ({ componentList, handleDelete }: CardListProps) => {
                     key={index}
                     component={component}
                     onDelete={() => handleDelete(index)}
+                    onEdit={() => handleEdit(component.id)}
                 />
             ))}
         </div>
