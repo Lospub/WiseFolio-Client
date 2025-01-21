@@ -4,7 +4,7 @@ import Sidebar from "../../components/SideBar/SideBar";
 import DropDownIcon from "../../assets/icons/dropdown.svg?react";
 import "./BudgetManagement.scss";
 import CardList from "../../components/CardList/CardList";
-import { calculateBudgetSpent, createBudget, getBudgetsByUserId } from "../../api/budgetServer";
+import { calculateBudgetSpent, createBudget, deleteBudget, getBudgetsByUserId } from "../../api/budgetServer";
 
 
 const BudgetManagement = () => {
@@ -15,6 +15,7 @@ const BudgetManagement = () => {
 
 
   type Budget = {
+    id: string;
     name: string;
     date: Date;
     amount: number;
@@ -38,6 +39,7 @@ const BudgetManagement = () => {
           fetchedBudgets.map(async (budget: any) => {
             const { spent } = await calculateBudgetSpent(budget.id);
             return {
+              id: budget.id,
               name: budget.category,
               date: new Date(budget.end_date),
               amount: spent,
@@ -95,6 +97,7 @@ const BudgetManagement = () => {
       setBudgets((prevBudgets) => [
         ...prevBudgets,
         {
+          id: newBudget.id,
           name: newBudget.category, 
           date: new Date(newBudget.end_date), 
           amount: spent, 
@@ -108,6 +111,21 @@ const BudgetManagement = () => {
       setDuration("");
     } catch (error) {
       console.error("Error creating budget:", error);
+    }
+  };
+
+  // Handle delete budget
+  const handleDelete = async (index: number) => {
+    try {
+      const budgetToDelete = budgets[index];
+
+      await deleteBudget(budgetToDelete.id);
+
+      setBudgets((prevBudgets) =>
+        prevBudgets.filter((_, i) => i !== index)
+      );
+    } catch (error) {
+      console.error("Error deleting budget:", error);
     }
   };
 
@@ -166,7 +184,7 @@ const BudgetManagement = () => {
             </button>
           </form>
           <h2 className="budget__card-header">Your Budgets</h2>
-          <CardList componentList={budgets} />
+          <CardList componentList={budgets} handleDelete={handleDelete}/>
         </section>
       </div>
     </div>

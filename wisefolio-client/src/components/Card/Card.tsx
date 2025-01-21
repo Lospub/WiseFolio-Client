@@ -3,13 +3,19 @@ import EditIcon from "../../assets/icons/edit.svg?react";
 import DeleteIcon from "../../assets/icons/delete.svg?react";
 
 type CardComponent = {
+  id: string;
   name: string;
   date: Date;
   amount: number;
   amountLimit: number;
 };
 
-const Card = ({ component }: { component: CardComponent }) => {
+type CardProps = {
+  component: CardComponent;
+  onDelete: () => void;
+};
+
+const Card = ({ component, onDelete }: CardProps) => {
   const usagePercentage = (component.amount / component.amountLimit) * 100;
 
   return (
@@ -23,7 +29,7 @@ const Card = ({ component }: { component: CardComponent }) => {
         </div>
         <div className="card__actions">
           <EditIcon className="card__edit" />
-          <DeleteIcon className="card__delete" />
+          <DeleteIcon className="card__delete" onClick={onDelete} /> 
         </div>
       </div>
       <div className="card__progress-bar">
