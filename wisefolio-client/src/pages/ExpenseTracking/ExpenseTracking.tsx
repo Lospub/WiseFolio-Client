@@ -8,7 +8,6 @@ import DropDownIcon from "../../assets/icons/dropdown.svg?react";
 import ListView from "../../components/Listview/Listview";
 import Header from "../../components/Header/Header";
 import { createExpense, getExpensesByUserId } from "../../api/expenseServer";
-import { decodeIdToken } from "../../api/userServer";
 
 const ExpenseTracking = () => {
   const [selectedDate, setSelectedDate] = useState<Date>(new Date());
@@ -29,11 +28,10 @@ const ExpenseTracking = () => {
   useEffect(() => {
     const fetchExpenses = async () => {
       try {
-        const IdToken = localStorage.getItem("idToken");
-        if (!IdToken) {
-          throw new Error("IdToken is null");
+        const userId = localStorage.getItem("UserID");
+        if (!userId) {
+          throw new Error("userID is null");
         }
-        const userId = await decodeIdToken(IdToken);
         const userExpenses = await getExpensesByUserId(userId.toString());
         setExpenses(userExpenses);
       } catch (error) {
@@ -48,11 +46,10 @@ const ExpenseTracking = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      const IdToken = localStorage.getItem("idToken");
-      if (!IdToken) {
-        throw new Error("IdToken is null");
+      const userId = localStorage.getItem("UserID");
+      if (!userId) {
+        throw new Error("userID is null");
       }
-      const userId = await decodeIdToken(IdToken);
       const expense = {
         user_id: userId.toString(),
         description: description,

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import './Login.scss';
 import Footer from '../../components/Footer/Footer';
-import { loginUser } from '../../api/userServer';
+import { decodeIdToken, loginUser } from '../../api/userServer';
 import Header from '../../components/Header/Header';
 
 
@@ -14,8 +14,10 @@ const Login = () => {
   const handleSignIn = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      const idToken =await loginUser(email, password);
+      const idToken = await loginUser(email, password);
       localStorage.setItem('idToken', idToken);
+      const userId = await decodeIdToken(idToken);
+      localStorage.setItem('UserID', userId.toString());
       navigate("/dashboard");
     } catch (error: any) {
       console.error("An Error Occurred: ", error.message)
