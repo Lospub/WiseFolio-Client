@@ -7,13 +7,16 @@ import CalenderIcon from "../../assets/icons/calendar.svg?react";
 import DropDownIcon from "../../assets/icons/dropdown.svg?react";
 import ListView from "../../components/Listview/Listview";
 import Header from "../../components/Header/Header";
-import { createExpense, getExpensesByUserId } from "../../api/expenseServer";
+import { createExpense, getExpensesByUserId, getExpenseById, updateExpense, deleteExpense } from "../../api/expenseServer";
 
 const ExpenseTracking = () => {
   const [selectedDate, setSelectedDate] = useState<Date>(new Date());
   const [description, setDescription] = useState<string>("");
   const [category, setCategory] = useState<string>("");
   const [amount, setAmount] = useState<string>("");
+  const [isEditing, setIsEditing] = useState<boolean>(false);
+  const [editingExpenseId, setEditingExpenseId] = useState<number | null>(null);
+
   interface Expense {
     id: number;
     description: string;
@@ -42,7 +45,7 @@ const ExpenseTracking = () => {
     fetchExpenses();
   }, []);
 
-  // create new expense
+  // adding or updating an expense
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
@@ -50,41 +53,87 @@ const ExpenseTracking = () => {
       if (!userId) {
         throw new Error("userID is null");
       }
-      const expense = {
-        user_id: userId.toString(),
-        description: description,
-        amount: parseFloat(amount),
-        category: category,
-        date: selectedDate.toISOString().split('T')[0],
-      };
-      const result = await createExpense(expense);
 
-      setExpenses((prevExpenses) => [
-        ...prevExpenses,
-        {
-          id: result.id,
-          description: result.description,
-          category: result.category,
-          date: result.date,
-          amount: result.amount,
-        },
-      ]);
+      if (isEditing && editingExpenseId !== null) {
+        // Update expense
+        const updates = {
+          description,
+          amount: parseFloat(amount),
+          category,
+          date: selectedDate.toISOString().split("T")[0],
+        };
 
+        const updatedExpense = await updateExpense(editingExpenseId.toString(), updates);
+        setExpenses((prevExpenses) =>
+          prevExpenses.map((expense) =>
+            expense.id === editingExpenseId ? { ...expense, ...updatedExpense } : expense
+          )
+        );
+
+        // Reset form state
+        setIsEditing(false);
+        setEditingExpenseId(null);
+      } else {
+        // Create new expense
+        const expense = {
+          user_id: userId.toString(),
+          description: description,
+          amount: parseFloat(amount),
+          category: category,
+          date: selectedDate.toISOString().split('T')[0],
+        };
+        const result = await createExpense(expense);
+
+        setExpenses((prevExpenses) => [
+          ...prevExpenses,
+          {
+            id: result.id,
+            description: result.description,
+            category: result.category,
+            date: result.date,
+            amount: result.amount,
+          },
+        ]);
+      }
+
+      // Reset form 
       setDescription("");
       setAmount("");
       setCategory("");
       setSelectedDate(new Date());
     } catch (error) {
-      console.error("Error creating expense:", error);
+      console.error("Error submitting expense:", error);
     }
   };
 
-  const handleEdit = (id: number) => {
-    console.log("Edit clicked for ID:", id);
+  // Edit handler
+  const handleEdit = async (id: number) => {
+    try {
+      const expense = await getExpenseById(id.toString());
+      setDescription(expense.description);
+      setAmount(expense.amount.toString());
+      setCategory(expense.category);
+      setSelectedDate(new Date(expense.date));
+      setIsEditing(true);
+      setEditingExpenseId(id);
+    } catch (error) {
+      console.error("Error fetching expense by ID:", error);
+    }
   };
 
-  const handleDelete = (id: number) => {
-    console.log("Delete clicked for ID:", id);
+  // Delete handler (optional for completeness)
+  const handleDelete = async (id: number) => {
+    try {
+      await deleteExpense(id.toString());
+      const userId = localStorage.getItem("UserID");
+      if (!userId) throw new Error("userID is null");
+  
+      // Re-fetch the updated expense list
+      const updatedExpenses = await getExpensesByUserId(userId.toString());
+      setExpenses(updatedExpenses);
+    } catch (error) {
+      console.error("Error deleting expense:", error);
+    }
   };
 
   return (
@@ -94,7 +143,9 @@ const ExpenseTracking = () => {
         <Sidebar />
         <section className="expense__section">
           <form className="expense__form-details" onSubmit={handleSubmit}>
-            <h2 className="expense__form-title">Add New Expense</h2>
+            <h2 className="expense__form-title">
+              {isEditing ? "Edit Expense" : "Add New Expense"}
+            </h2>
             <input
               type="text"
               placeholder="Description"
@@ -155,12 +206,12 @@ const ExpenseTracking = () => {
               />
             </div>
             <button type="submit" className="expense__button">
-              Confirm
+              {isEditing ? "Update Expense" : "Add Expense"}
             </button>
           </form>
           <div className="expense__recent">
             <ListView
-              expenses={expenses}
+              expenses={expenses.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())}
               onEdit={handleEdit}
               onDelete={handleDelete}
             />
