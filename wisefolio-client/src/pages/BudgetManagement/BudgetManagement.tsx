@@ -50,7 +50,6 @@ const BudgetManagement = () => {
         const budgetsWithSpent = await Promise.all(
           fetchedBudgets.map(async (budget: any) => {
             const { spent } = await calculateBudgetSpent(budget.id);
-            console.log(spent);
             return {
               id: budget.id,
               name: budget.category,
@@ -61,7 +60,6 @@ const BudgetManagement = () => {
           })
         );
         setBudgets(budgetsWithSpent);
-        console.log(budgetsWithSpent);
       } catch (error) {
         console.error("Error fetching budgets:", error);
       }

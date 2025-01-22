@@ -38,7 +38,6 @@ const SavingsGoals = () => {
         const savingsWithAmounts = await Promise.all(
           fetchedSavings.map(async (saving: any) => {
             const { saved } = await calculateSavedAmount(saving.id);
-            console.log(saved);
             return {
               id: saving.id,
               name: saving.description,
@@ -49,7 +48,6 @@ const SavingsGoals = () => {
           })
         );
         setSavings(savingsWithAmounts);
-        console.log(savingsWithAmounts);
       } catch (error) {
         console.error("Error fetching savings:", error);
       }
