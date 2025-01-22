@@ -46,3 +46,30 @@ export const decodeIdToken = async (idToken: string): Promise<String> => {
         throw error.response?.data?.message || error.message;
     }
 };
+
+// Fetch user data by ID
+export const fetchUserData = async (userId: string): Promise<User> => {
+    try {
+        const response = await apiClient.get<User>(`/users/${userId}`);
+        return response.data;
+    } catch (error: any) {
+        throw error.response?.data?.message || error.message;
+    }
+};
+
+// Update user data
+export const updateUserData = async (
+    userId: string,
+    newName?: string,
+    newPassword?: string
+): Promise<User> => {
+    try {
+        const response = await apiClient.put<User>(
+            '/users/update',
+            { userId, newName, newPassword }
+        );
+        return response.data;
+    } catch (error: any) {
+        throw error.response?.data?.message || error.message;
+    }
+};

@@ -1,0 +1,76 @@
+@use "../../styles/partials/variables" as *;
+@use "../../styles/partials/mixins" as *;
+
+.profile {
+    width: 100%;
+    background-color: $primary-background;
+
+    @include tablet {
+        @include flex-style(flex-start, flex-start, unset, nowrap, row);
+    }
+
+    &__settings {
+        background-color: $primary-color;
+        padding: 2rem;
+        width: 100%;
+        max-width: 400px;
+        margin: 0 auto;
+        margin-top: 5rem;
+        border-radius: 0.5rem;
+        box-shadow: 0px 4px 6px $primary-shadow;
+    }
+
+    &__title {
+        @include font-style(1.5rem, 2rem, 600, $primary-text);
+        margin-bottom: 1.5rem;
+    }
+
+    &__form {
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+    }
+
+    &__form-label {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+        color: $tertiary-text;
+        font-size: 0.875rem;
+        font-weight: 500;
+    }
+
+    &__form-input {
+        width: 100%;
+        padding: 0.75rem;
+        border: 1px solid $primary-boarder;
+        border-radius: 0.375rem;
+        font-size: 0.875rem;
+        line-height: 1.25rem;
+        color: $primary-text;
+        background-color: $primary-color;
+
+        &::placeholder {
+            color: $placeholder-text;
+        }
+
+        &:disabled {
+            background-color: $secondary-background;
+            color: $footer-text;
+            cursor: not-allowed;
+        }
+    }
+
+    &__form-button {
+        @include button-style($primary-process, 0.75rem 1.25rem);
+        color: $primary-color;
+        font-size: 0.875rem;
+        font-weight: 600;
+        text-align: center;
+        transition: background-color 0.3s;
+
+        &:hover {
+            background-color: $primary-hover;
+        }
+    }
+}
