@@ -2,9 +2,8 @@ import apiClient from './apiClient';
 
 export const createSaving = async (saving: {
     user_id: string;
-    goal_name: string;
-    target_amount: number;
-    start_date: string;
+    description: string;
+    amount: number;
     end_date: string;
 }) => {
     const response = await apiClient.post('/saving', saving);
@@ -24,9 +23,8 @@ export const getSavingById = async (id: string) => {
 export const updateSaving = async (
     id: string,
     updates: Partial<{
-        goal_name: string;
-        target_amount: number;
-        start_date: string;
+        description: string;
+        amount: number;
         end_date: string;
     }>
 ) => {

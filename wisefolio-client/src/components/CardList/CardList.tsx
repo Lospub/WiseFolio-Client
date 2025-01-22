@@ -11,7 +11,7 @@ type Component = {
 
 type CardListProps = {
     componentList: Component[];
-    handleDelete: (index: number) => void;
+    handleDelete: (id: string) => void;
     handleEdit: (id: string) => void;
 };
 
@@ -22,7 +22,7 @@ const CardList = ({ componentList, handleDelete, handleEdit }: CardListProps) =>
                 <Card
                     key={index}
                     component={component}
-                    onDelete={() => handleDelete(index)}
+                    onDelete={() => handleDelete(component.id)}
                     onEdit={() => handleEdit(component.id)}
                 />
             ))}

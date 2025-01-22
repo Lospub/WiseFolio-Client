@@ -38,6 +38,7 @@ const BudgetManagement = () => {
         const budgetsWithSpent = await Promise.all(
           fetchedBudgets.map(async (budget: any) => {
             const { spent } = await calculateBudgetSpent(budget.id);
+            console.log(spent);
             return {
               id: budget.id,
               name: budget.category,
@@ -48,6 +49,7 @@ const BudgetManagement = () => {
           })
         );
         setBudgets(budgetsWithSpent);
+        console.log(budgetsWithSpent);
       } catch (error) {
         console.error("Error fetching budgets:", error);
       }
@@ -155,11 +157,10 @@ const BudgetManagement = () => {
     }
   };
 
-  const handleDelete = async (index: number) => {
+  const handleDelete = async (id: string) => {
     try {
-      const budgetToDelete = budgets[index];
-      await deleteBudget(budgetToDelete.id);
-      setBudgets((prevBudgets) => prevBudgets.filter((_, i) => i !== index));
+      await deleteBudget(id); 
+      setBudgets((prevBudgets) => prevBudgets.filter((budget) => budget.id !== id)); 
     } catch (error) {
       console.error("Error deleting budget:", error);
     }

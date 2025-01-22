@@ -1,25 +1,143 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Header from "../../components/Header/Header";
 import Sidebar from "../../components/SideBar/SideBar";
-import "./SavingsGoals.scss";
+import CalenderIcon from "../../assets/icons/calendar.svg?react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import CalenderIcon from "../../assets/icons/calendar.svg?react";
+import "./SavingsGoals.scss";
 import CardList from "../../components/CardList/CardList";
+import { calculateSavedAmount, createSaving, deleteSaving, getSavingsByUserId, updateSaving } from "../../api/savingServer";
 
 const SavingsGoals = () => {
+  const [goalName, setGoalName] = useState("");
+  const [goalAmount, setGoalAmount] = useState("");
   const [selectedDate, setSelectedDate] = useState<Date>(new Date());
-  const [goalName, setGoalName] = useState<string>("");
-  const [goalAmount, setGoalAmount] = useState<number>(0);
-  const [savings, setSavings] = useState<Savings[]>([
-    { name: "New Phone", amount: 200, amountLimit: 500, date: new Date() },
-    { name: "New Laptop", amount: 600, amountLimit: 1000, date: new Date() },
-  ]);
-  type Savings = {
+  const [savings, setSavings] = useState<Saving[]>([]);
+  const [isEditing, setIsEditing] = useState(false);
+  const [editSavingId, setEditSavingId] = useState<string | null>(null);
+
+  type Saving = {
+    id: string;
     name: string;
     date: Date;
     amount: number;
     amountLimit: number;
+  };
+
+  const userId = localStorage.getItem("UserID");
+  if (!userId) {
+    throw new Error("UserID is null");
+  }
+
+  useEffect(() => {
+    const fetchSavings = async () => {
+      try {
+        const fetchedSavings = await getSavingsByUserId(userId.toString());
+        console.log(fetchedSavings);
+        const savingsWithAmounts = await Promise.all(
+          fetchedSavings.map(async (saving: any) => {
+            const { saved } = await calculateSavedAmount(saving.id);
+            console.log(saved);
+            return {
+              id: saving.id,
+              name: saving.description,
+              date: new Date(saving.end_date),
+              amount: saved,
+              amountLimit: saving.amount,
+            };
+          })
+        );
+        setSavings(savingsWithAmounts);
+        console.log(savingsWithAmounts);
+      } catch (error) {
+        console.error("Error fetching savings:", error);
+      }
+    };
+    fetchSavings();
+  }, []);
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    const end_date = selectedDate;
+
+    if (!end_date) {
+      console.error("End date is required");
+      return;
+    }
+
+    try {
+      if (isEditing && editSavingId) {
+        await updateSaving(editSavingId, {
+          description: goalName,
+          amount: parseFloat(goalAmount),
+          end_date: end_date.toISOString().split("T")[0],
+        });
+
+        setSavings((prevSavings) =>
+          prevSavings.map((saving) =>
+            saving.id === editSavingId
+              ? {
+                ...saving,
+                name: goalName,
+                date: end_date,
+                amountLimit: parseFloat(goalAmount),
+              }
+              : saving
+          )
+        );
+
+        setIsEditing(false);
+        setEditSavingId(null);
+      } else {
+        const newSaving = await createSaving({
+          user_id: userId,
+          description: goalName,
+          amount: parseFloat(goalAmount),
+          end_date: end_date.toISOString().split("T")[0],
+        });
+
+        const { saved } = await calculateSavedAmount(newSaving.id);
+
+        setSavings((prevSavings) => [
+          ...prevSavings,
+          {
+            id: newSaving.id,
+            name: newSaving.description,
+            date: new Date(newSaving.end_date),
+            amount: saved,
+            amountLimit: newSaving.amount,
+          },
+        ]);
+      }
+
+      // Reset form
+      setGoalName("");
+      setGoalAmount("");
+      setSelectedDate(new Date());
+    } catch (error) {
+      console.error("Error submitting savings goal:", error);
+    }
+  };
+
+  const handleEdit = (id: string) => {
+    const savingToEdit = savings.find((saving) => saving.id === id);
+    if (savingToEdit) {
+      setGoalName(savingToEdit.name);
+      setGoalAmount(savingToEdit.amountLimit.toString());
+      setSelectedDate(savingToEdit.date);
+      setIsEditing(true);
+      setEditSavingId(id);
+    }
+  };
+
+  const handleDelete = async (id: string) => {
+    try {
+      await deleteSaving(id);
+      setSavings((prevSavings) => prevSavings.filter((saving) => saving.id !== id));
+    } catch (error) {
+      console.error("Error deleting savings goal:", error);
+    }
   };
 
   return (
@@ -28,21 +146,25 @@ const SavingsGoals = () => {
       <div className="savings">
         <Sidebar />
         <section className="savings__section">
-          <form className="savings__form-details">
-            <h2 className="savings__form-title">Create New Savings Goal</h2>
+          <form className="savings__form-details" onSubmit={handleSubmit}>
+            <h2 className="savings__form-title">
+              {isEditing ? "Edit Savings Goal" : "Create New Savings Goal"}
+            </h2>
             <input
+              className="savings__input"
               type="text"
               value={goalName}
-              placeholder="Goal Name"
               onChange={(e) => setGoalName(e.target.value)}
-              className="savings__input"
+              placeholder="Goal Name"
+              required
             />
             <input
+              className="savings__input"
               type="number"
               value={goalAmount}
+              onChange={(e) => setGoalAmount(e.target.value)}
               placeholder="Goal Amount"
-              onChange={(e) => setGoalAmount(Number(e.target.value))}
-              className="savings__input"
+              required
             />
             <div className="savings__date">
               <DatePicker
@@ -70,10 +192,16 @@ const SavingsGoals = () => {
                 }
               />
             </div>
-            <button className="savings__button">Create</button>
+            <button type="submit" className="savings__button">
+              {isEditing ? "Update Goal" : "Create Goal"}
+            </button>
           </form>
           <h2 className="savings__card-header">Your Savings Goals</h2>
-          <CardList componentList={savings} />
+          <CardList
+            componentList={savings}
+            handleDelete={handleDelete}
+            handleEdit={handleEdit}
+          />
         </section>
       </div>
     </div>
