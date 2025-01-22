@@ -3,20 +3,22 @@ import Header from "../../components/Header/Header";
 import Sidebar from "../../components/SideBar/SideBar";
 import DropDownIcon from "../../assets/icons/dropdown.svg?react";
 import CalenderIcon from "../../assets/icons/calendar.svg?react";
-import DatePicker from "react-datepicker"; 
-import "react-datepicker/dist/react-datepicker.css"; 
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 import "./BudgetManagement.scss";
 import CardList from "../../components/CardList/CardList";
 import { deleteBudget, calculateBudgetSpent, createBudget, getBudgetsByUserId, updateBudget } from "../../api/budgetServer";
+import { getCategories } from "../../api/categoryServer";
 
 const BudgetManagement = () => {
   const [category, setCategory] = useState("");
   const [amountLimit, setAmountLimit] = useState("");
   const [duration, setDuration] = useState("");
-  const [selectedDate, setSelectedDate] = useState<Date | null>(null); 
+  const [selectedDate, setSelectedDate] = useState<Date | null>(null);
   const [budgets, setBudgets] = useState<Budget[]>([]);
-  const [isEditing, setIsEditing] = useState(false); 
+  const [isEditing, setIsEditing] = useState(false);
   const [editBudgetId, setEditBudgetId] = useState<string | null>(null);
+  const [categories, setCategories] = useState<string[]>([]);
 
   type Budget = {
     id: string;
@@ -32,6 +34,16 @@ const BudgetManagement = () => {
   }
 
   useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const fetchedCategories = await getCategories();
+        const categoryNames = fetchedCategories.map((category) => category.name);
+        setCategories(categoryNames);
+      } catch (error) {
+        console.error("Error fetching categories:", error);
+      }
+    };
+
     const fetchBudgets = async () => {
       try {
         const fetchedBudgets = await getBudgetsByUserId(userId.toString());
@@ -55,6 +67,7 @@ const BudgetManagement = () => {
       }
     };
     fetchBudgets();
+    fetchCategories();
   }, []);
 
   // Handle form submission
@@ -101,11 +114,11 @@ const BudgetManagement = () => {
           prevBudgets.map((budget) =>
             budget.id === editBudgetId
               ? {
-                  ...budget,
-                  name: category,
-                  date: new Date(end_date),
-                  amountLimit: parseFloat(amountLimit),
-                }
+                ...budget,
+                name: category,
+                date: new Date(end_date),
+                amountLimit: parseFloat(amountLimit),
+              }
               : budget
           )
         );
@@ -123,7 +136,7 @@ const BudgetManagement = () => {
 
         const { spent } = await calculateBudgetSpent(newBudget.id);
 
-      // Add new budget to the list
+        // Add new budget to the list
         setBudgets((prevBudgets) => [
           ...prevBudgets,
           {
@@ -151,7 +164,7 @@ const BudgetManagement = () => {
     if (budgetToEdit) {
       setCategory(budgetToEdit.name);
       setAmountLimit(budgetToEdit.amountLimit.toString());
-      setSelectedDate(budgetToEdit.date); 
+      setSelectedDate(budgetToEdit.date);
       setIsEditing(true);
       setEditBudgetId(id);
     }
@@ -159,8 +172,8 @@ const BudgetManagement = () => {
 
   const handleDelete = async (id: string) => {
     try {
-      await deleteBudget(id); 
-      setBudgets((prevBudgets) => prevBudgets.filter((budget) => budget.id !== id)); 
+      await deleteBudget(id);
+      setBudgets((prevBudgets) => prevBudgets.filter((budget) => budget.id !== id));
     } catch (error) {
       console.error("Error deleting budget:", error);
     }
@@ -185,10 +198,11 @@ const BudgetManagement = () => {
                 required
               >
                 <option value="" disabled hidden>Category</option>
-                <option value="food">Food</option>
-                <option value="transport">Transport</option>
-                <option value="entertainment">Entertainment</option>
-                <option value="others">Others</option>
+                {categories.map((category) => (
+                  <option key={category} value={category}>
+                    {category}
+                  </option>
+                ))}
               </select>
               <DropDownIcon className="budget__dropdown-icon" />
             </div>
@@ -234,7 +248,7 @@ const BudgetManagement = () => {
                   onChange={(e) => setDuration(e.target.value)}
                   required
                 >
-                <option value="" disabled hidden>Duration</option>
+                  <option value="" disabled hidden>Duration</option>
                   <option value="weekly">Weekly</option>
                   <option value="monthly">Monthly</option>
                   <option value="yearly">Yearly</option>

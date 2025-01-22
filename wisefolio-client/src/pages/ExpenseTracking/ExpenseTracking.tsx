@@ -8,6 +8,7 @@ import DropDownIcon from "../../assets/icons/dropdown.svg?react";
 import ListView from "../../components/Listview/Listview";
 import Header from "../../components/Header/Header";
 import { createExpense, getExpensesByUserId, getExpenseById, updateExpense, deleteExpense } from "../../api/expenseServer";
+import { getCategories } from "../../api/categoryServer";
 
 const ExpenseTracking = () => {
   const [selectedDate, setSelectedDate] = useState<Date>(new Date());
@@ -24,8 +25,9 @@ const ExpenseTracking = () => {
     date: string;
     amount: number;
   }
-  
+
   const [expenses, setExpenses] = useState<Expense[]>([]);
+  const [categories, setCategories] = useState<string[]>([]);
 
   // get expenses by user id
   useEffect(() => {
@@ -41,8 +43,18 @@ const ExpenseTracking = () => {
         console.error("Error fetching expenses:", error);
       }
     };
+    const fetchCategories = async () => {
+      try {
+        const fetchedCategories = await getCategories();
+        const categoryNames = fetchedCategories.map((category) => category.name);
+        setCategories(categoryNames);
+      } catch (error) {
+        console.error("Error fetching categories:", error);
+      }
+    };
 
     fetchExpenses();
+    fetchCategories();
   }, []);
 
   // adding or updating an expense
@@ -127,7 +139,7 @@ const ExpenseTracking = () => {
       await deleteExpense(id.toString());
       const userId = localStorage.getItem("UserID");
       if (!userId) throw new Error("userID is null");
-  
+
       // Re-fetch the updated expense list
       const updatedExpenses = await getExpensesByUserId(userId.toString());
       setExpenses(updatedExpenses);
@@ -171,10 +183,11 @@ const ExpenseTracking = () => {
                 <option value="" disabled hidden>
                   Category
                 </option>
-                <option value="food">Food</option>
-                <option value="transport">Transport</option>
-                <option value="entertainment">Entertainment</option>
-                <option value="others">Others</option>
+                {categories.map((category) => (
+                  <option key={category} value={category}>
+                    {category}
+                  </option>
+                ))}
               </select>
               <DropDownIcon className="expense__dropdown-icon" />
             </div>

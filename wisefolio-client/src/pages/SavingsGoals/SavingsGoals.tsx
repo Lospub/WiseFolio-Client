@@ -7,6 +7,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import "./SavingsGoals.scss";
 import CardList from "../../components/CardList/CardList";
 import { calculateSavedAmount, createSaving, deleteSaving, getSavingsByUserId, updateSaving } from "../../api/savingServer";
+import { createCategory, updateCategory, deleteCategory, } from "../../api/categoryServer";
 
 const SavingsGoals = () => {
   const [goalName, setGoalName] = useState("");
@@ -74,6 +75,8 @@ const SavingsGoals = () => {
           end_date: end_date.toISOString().split("T")[0],
         });
 
+        await updateCategory(editSavingId, `Saving Goal: ${goalName}`);
+
         setSavings((prevSavings) =>
           prevSavings.map((saving) =>
             saving.id === editSavingId
@@ -96,6 +99,8 @@ const SavingsGoals = () => {
           amount: parseFloat(goalAmount),
           end_date: end_date.toISOString().split("T")[0],
         });
+
+        await createCategory({ id: newSaving.id, name: `Saving Goal: ${goalName}` });
 
         const { saved } = await calculateSavedAmount(newSaving.id);
 
@@ -134,6 +139,7 @@ const SavingsGoals = () => {
   const handleDelete = async (id: string) => {
     try {
       await deleteSaving(id);
+      await deleteCategory(id);
       setSavings((prevSavings) => prevSavings.filter((saving) => saving.id !== id));
     } catch (error) {
       console.error("Error deleting savings goal:", error);
