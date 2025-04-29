@@ -104,7 +104,6 @@ const BudgetManagement = () => {
         await updateBudget(editBudgetId, {
           category,
           amount: parseFloat(amountLimit),
-          start_date: start_date.toISOString().split("T")[0],
           end_date: end_date.toISOString().split("T")[0],
         });
 
